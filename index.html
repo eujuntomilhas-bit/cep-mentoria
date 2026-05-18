@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CEP — Código da Emissão Perfeita</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gabriela&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: #F4F1EC;
+      color: #4F6F52;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 60px 24px;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 56px;
+    }
+
+    .tag {
+      display: inline-block;
+      background: #D97A3A;
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 6px 18px;
+      border-radius: 100px;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      font-family: 'Gabriela', serif;
+      font-size: 2.4rem;
+      color: #4F6F52;
+      line-height: 1.2;
+      margin-bottom: 12px;
+    }
+
+    header p {
+      font-size: 0.95rem;
+      color: #7a9a7e;
+    }
+
+    .aulas {
+      width: 100%;
+      max-width: 640px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .aula {
+      background: #fff;
+      border-radius: 16px;
+      padding: 28px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      text-decoration: none;
+      border: 2px solid transparent;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      box-shadow: 0 2px 8px rgba(79,111,82,0.07);
+    }
+
+    .aula:hover {
+      border-color: #D97A3A;
+      box-shadow: 0 4px 20px rgba(217,122,58,0.15);
+    }
+
+    .aula-info { flex: 1; }
+
+    .aula-num {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #D97A3A;
+      margin-bottom: 6px;
+    }
+
+    .aula-titulo {
+      font-family: 'Gabriela', serif;
+      font-size: 1.15rem;
+      color: #4F6F52;
+      margin-bottom: 4px;
+    }
+
+    .aula-desc {
+      font-size: 0.8rem;
+      color: #9ab09e;
+    }
+
+    .aula-arrow {
+      font-size: 1.2rem;
+      color: #D97A3A;
+      margin-left: 20px;
+      opacity: 0.7;
+    }
+
+    .aula.em-breve {
+      opacity: 0.45;
+      pointer-events: none;
+      cursor: default;
+    }
+
+    .pill-breve {
+      display: inline-block;
+      background: #e8e4de;
+      color: #9ab09e;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 100px;
+      margin-left: 10px;
+      vertical-align: middle;
+    }
+
+    footer {
+      margin-top: 56px;
+      font-size: 0.78rem;
+      color: #b5c9b8;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="tag">CEP — Código da Emissão Perfeita</div>
+    <h1>Material das Aulas</h1>
+    <p>Bruna Araújo · @eujuntomilhas</p>
+  </header>
+
+  <div class="aulas">
+
+    <a class="aula" href="slides/aula-1-slides.html">
+      <div class="aula-info">
+        <div class="aula-num">Aula 1</div>
+        <div class="aula-titulo">Fundamentos que destravam a cabeça</div>
+        <div class="aula-desc">Lógica do mundo award · alianças · sweet spots · estratégia</div>
+      </div>
+      <div class="aula-arrow">→</div>
+    </a>
+
+    <div class="aula em-breve">
+      <div class="aula-info">
+        <div class="aula-num">Aula 2 <span class="pill-breve">Em breve</span></div>
+        <div class="aula-titulo">Tabelas que importam</div>
+        <div class="aula-desc">Lógica de precificação e sweet spots reais</div>
+      </div>
+      <div class="aula-arrow">→</div>
+    </div>
+
+    <div class="aula em-breve">
+      <div class="aula-info">
+        <div class="aula-num">Aula 3 <span class="pill-breve">Em breve</span></div>
+        <div class="aula-titulo">Como achar e emitir tarifas award</div>
+        <div class="aula-desc">Busca · disponibilidade · emissão passo a passo</div>
+      </div>
+      <div class="aula-arrow">→</div>
+    </div>
+
+    <div class="aula em-breve">
+      <div class="aula-info">
+        <div class="aula-num">Aula 4 <span class="pill-breve">Em breve</span></div>
+        <div class="aula-titulo">Montagem do roteiro award</div>
+        <div class="aula-desc">Open Jaw · stopover · cálculo final · script de emissão</div>
+      </div>
+      <div class="aula-arrow">→</div>
+    </div>
+
+    <div class="aula em-breve">
+      <div class="aula-info">
+        <div class="aula-num">Aula 5 <span class="pill-breve">Em breve</span></div>
+        <div class="aula-titulo">Oficina de emissões ao vivo</div>
+        <div class="aula-desc">Trechos reais · análise ao vivo · autonomia total</div>
+      </div>
+      <div class="aula-arrow">→</div>
+    </div>
+
+  </div>
+
+  <footer>eujuntomilhas · CEP Mentoria</footer>
+
+</body>
+</html>
