@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aula 1 — Fundamentos | CEP · Código da Emissão Perfeita</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gabriela&family=Roboto:wght@400;500;600;700&family=Caveat:wght@400;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.6.0/dist/reset.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.6.0/dist/reveal.css">
+
+  <style>
+    /* ── Brand tokens ── */
+    :root {
+      --verde-musgo:  #4F6F52;
+      --verde-salvia: #8FAF9A;
+      --terracota:    #D97A3A;
+      --ambar:        #E6A15A;
+      --offwhite:     #F4F1EC;
+      --branco:       #FFFFFF;
+    }
+
+    /* ── Base ── */
+    .reveal {
+      font-family: 'Roboto', sans-serif;
+      font-size: 36px;
+      color: var(--verde-musgo);
+      background: var(--offwhite);
+    }
+
+    .reveal .slides section {
+      text-align: left;
+      padding: 60px 80px;
+      box-sizing: border-box;
+    }
+
+    /* ── Slide layouts ── */
+    .slide-capa        { background: var(--terracota); }
+    .slide-citacao     { background: var(--verde-musgo); }
+    .slide-secao       { background: var(--verde-salvia); }
+    .slide-conteudo    { background: var(--offwhite); }
+    .slide-destaque    { background: var(--verde-musgo); }
+    .slide-fechamento  { background: var(--terracota); }
+    .slide-resumo      { background: var(--offwhite); }
+
+    /* ── Tipografia ── */
+    h1, h2 {
+      font-family: 'Gabriela', serif;
+      font-weight: 400;
+      line-height: 1.1;
+      margin: 0 0 24px 0;
+    }
+
+    h3 {
+      font-family: 'Roboto', sans-serif;
+      font-weight: 700;
+      font-size: 0.7em;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin: 0 0 16px 0;
+    }
+
+    p, li {
+      font-family: 'Roboto', sans-serif;
+      font-weight: 400;
+      font-size: 0.55em;
+      line-height: 1.6;
+      margin: 0 0 8px 0;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    ul li::before {
+      content: "—";
+      margin-right: 12px;
+      color: var(--terracota);
+      font-weight: 700;
+    }
+
+    .slide-citacao ul li::before,
+    .slide-destaque ul li::before,
+    .slide-secao ul li::before {
+      color: var(--ambar);
+    }
+
+    .caveat {
+      font-family: 'Caveat', cursive;
+      font-size: 1em;
+    }
+
+    /* ── Cores por layout ── */
+    .slide-capa h1,
+    .slide-capa p,
+    .slide-capa .sub {
+      color: var(--branco);
+    }
+
+    .slide-citacao h1,
+    .slide-citacao h2,
+    .slide-citacao p,
+    .slide-citacao li,
+    .slide-citacao blockquote {
+      color: var(--branco);
+    }
+
+    .slide-secao h1,
+    .slide-secao h2,
+    .slide-secao h3,
+    .slide-secao p {
+      color: var(--verde-musgo);
+    }
+
+    .slide-destaque h1,
+    .slide-destaque h2,
+    .slide-destaque h3,
+    .slide-destaque p,
+    .slide-destaque li {
+      color: var(--branco);
+    }
+
+    .slide-fechamento h1,
+    .slide-fechamento h2,
+    .slide-fechamento p,
+    .slide-fechamento blockquote {
+      color: var(--branco);
+    }
+
+    .slide-conteudo h2,
+    .slide-conteudo h3 {
+      color: var(--verde-musgo);
+    }
+
+    .slide-conteudo li {
+      color: #2a2a2a;
+    }
+
+    .slide-resumo h2,
+    .slide-resumo h3 {
+      color: var(--verde-musgo);
+    }
+
+    /* ── Componentes ── */
+    .tag {
+      display: inline-block;
+      background: var(--terracota);
+      color: var(--branco);
+      font-family: 'Roboto', sans-serif;
+      font-size: 0.38em;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 6px 18px;
+      border-radius: 100px;
+      margin-bottom: 24px;
+    }
+
+    .slide-destaque .tag,
+    .slide-citacao .tag {
+      background: var(--ambar);
+      color: var(--verde-musgo);
+    }
+
+    .slide-secao .tag {
+      background: var(--verde-musgo);
+      color: var(--branco);
+    }
+
+    blockquote {
+      border-left: 4px solid var(--ambar);
+      margin: 0;
+      padding: 16px 32px;
+      font-family: 'Gabriela', serif;
+      font-size: 0.65em;
+      line-height: 1.5;
+      font-style: italic;
+    }
+
+    .slide-conteudo blockquote {
+      color: var(--verde-musgo);
+      border-left-color: var(--terracota);
+    }
+
+    /* Tabela */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.44em;
+      margin-top: 16px;
+    }
+
+    th {
+      background: var(--verde-musgo);
+      color: var(--branco);
+      font-family: 'Roboto', sans-serif;
+      font-weight: 700;
+      padding: 10px 16px;
+      text-align: left;
+      letter-spacing: 0.04em;
+    }
+
+    td {
+      padding: 10px 16px;
+      border-bottom: 1px solid #ddd;
+      color: #2a2a2a;
+    }
+
+    tr:nth-child(even) td {
+      background: rgba(79,111,82,0.06);
+    }
+
+    .slide-destaque th { background: var(--ambar); color: var(--verde-musgo); }
+    .slide-destaque td { color: var(--branco); border-bottom-color: rgba(255,255,255,0.2); }
+    .slide-destaque tr:nth-child(even) td { background: rgba(255,255,255,0.1); }
+
+    /* Grid duas colunas */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      margin-top: 16px;
+    }
+
+    .col {
+      background: rgba(79,111,82,0.07);
+      border-radius: 12px;
+      padding: 24px 28px;
+    }
+
+    .slide-destaque .col {
+      background: rgba(255,255,255,0.1);
+    }
+
+    .col h3 {
+      font-size: 0.5em;
+      margin-bottom: 12px;
+    }
+
+    .col ul li {
+      font-size: 0.85em;
+    }
+
+    /* Rodapé */
+    .rodape {
+      position: absolute;
+      bottom: 28px;
+      right: 60px;
+      font-family: 'Roboto', sans-serif;
+      font-size: 0.3em;
+      color: rgba(79,111,82,0.45);
+      letter-spacing: 0.04em;
+    }
+
+    .slide-capa .rodape,
+    .slide-citacao .rodape,
+    .slide-destaque .rodape,
+    .slide-fechamento .rodape {
+      color: rgba(255,255,255,0.45);
+    }
+
+    .slide-secao .rodape {
+      color: rgba(79,111,82,0.55);
+    }
+
+    /* Número do slide */
+    .num {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: 'Roboto', sans-serif;
+      font-size: 0.32em;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      opacity: 0.6;
+      color: var(--verde-musgo);
+    }
+
+    .slide-capa .num,
+    .slide-citacao .num,
+    .slide-destaque .num,
+    .slide-fechamento .num {
+      color: rgba(255,255,255,0.7);
+      opacity: 1;
+    }
+
+    .slide-secao .num {
+      color: var(--verde-musgo);
+      opacity: 0.6;
+    }
+
+    /* Destaque inline terracota */
+    .tc { color: var(--terracota); font-weight: 700; }
+    .slide-destaque .tc,
+    .slide-citacao .tc { color: var(--ambar); }
+
+    /* Separador */
+    hr {
+      border: none;
+      border-top: 2px solid var(--ambar);
+      margin: 20px 0;
+      opacity: 0.4;
+    }
+
+    /* Pill de programa */
+    .pill {
+      display: inline-block;
+      background: var(--ambar);
+      color: var(--verde-musgo);
+      font-size: 0.38em;
+      font-weight: 700;
+      padding: 4px 14px;
+      border-radius: 100px;
+      margin-right: 6px;
+      margin-bottom: 6px;
+    }
+  </style>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+
+  <!-- ─── CAPA ─────────────────────────────────────── -->
+  <section class="slide-capa">
+    <div class="tag">CEP — Código da Emissão Perfeita</div>
+    <h1 style="font-size:1.8em; margin-top: 8px;">Fundamentos<br>que destravam<br>a cabeça</h1>
+    <p style="margin-top:32px; font-size:0.5em; opacity:0.85;">Aula 1 &nbsp;·&nbsp; Bruna Araújo &nbsp;·&nbsp; @eujuntomilhas</p>
+    <div class="rodape">eujuntomilhas</div>
+  </section>
+
+  <!-- ─── ABERTURA — MERCADO DINÂMICO ──────────────── -->
+  <section class="slide-citacao">
+    <div class="tag">Para começar</div>
+    <blockquote style="border-left-color: var(--ambar); color: var(--branco); font-size: 0.7em; margin-top: 16px;">
+      "O mercado de emissões é dinâmico.<br>
+      As regras mudam, programas ajustam tabelas,<br>
+      parcerias surgem e desaparecem.<br><br>
+      Mas quando você entende a lógica,<br>
+      qualquer mudança vira <strong>adaptação</strong> — não recomeço."
+    </blockquote>
+    <p style="margin-top: 32px; font-family: 'Caveat', cursive; font-size: 0.7em; color: var(--ambar);">A lógica é fixa. O cenário é que se movimenta.</p>
+    <div class="rodape">eujuntomilhas</div>
+    <div class="num">01</div>
+  </section>
+
+  <!-- ─── SEÇÃO 1 ───────────────────────────────────── -->
+  <section class="slide-secao">
+    <div class="tag">Bloco 1</div>
+    <h1 style="font-size:1.6em; color: var(--verde-musgo);">O que é<br>emissão award</h1>
+    <div class="rodape" style="color: rgba(79,111,82,0.5);">eujuntomilhas</div>
+    <div class="num">02</div>
+  </section>
+
+  <!-- ─── AWARD VS COMERCIAL ───────────────────────── -->
+  <section class="slide-conteudo">
+    <div class="tag">Conceito</div>
+    <h2>Award vs. Passagem Comercial</h2>
+    <div class="grid-2">
+      <div class="col">
+        <h3>Passagem Comercial</h3>
+        <ul>
+          <li>Compra com dinheiro</li>
+          <li>Preço varia por demanda</li>
+          <li>Sobe na alta temporada</li>
+          <li>Desce em promoção</li>
+        </ul>
+      </div>
+      <div class="col">
+        <h3>Emissão Award</h3>
+        <ul>
+          <li>Paga com milhas/pontos</li>
+          <li>Tabela fixa (na maioria)</li>
+          <li>Taxa em dinheiro apenas</li>
+          <li>Valor independe da data</li>
+        </ul>
+      </div>
+    </div>
+    <div class="rodape">eujuntomilhas</div>
+    <div class="num">03</div>
+  </section>
+
+  <!-- ─── VALOR REAL ─────────────────────────────── -->
+  <section class="slide-destaque">
+    <div class="tag">Por que award entrega mais</div>
+    <h2>O impacto real</h2>
+    <div class="grid-2" style="margin-top: 24px;">
+      <div class="col">
+        <h3>Emissão ideal</h3>
+        <ul>
+          <li>Passagem paga: <span class="tc">R$ 5.000</span></li>
+          <li>Via award: <span class="tc">44.000 milhas</span></li>
+          <li>Custo das milhas: R$ 2.156</li>
+          <li>Economia real: <span class="tc">R$ 2.844</span></li>
+        </ul>
+      </div>
+      <div class="col">
+        <h3>A lógica</h3>
+        <ul>
+          <li>Tabela fixa protege você</li>
+          <li>Alta temporada não muda</li>
+          <li>Quem sabe a tabela prevê</li>
+          <li>Prevê antes de buscar</li>
+        </ul>
+      </div>
+    </div>
+    <div class="rodape">eujuntomilhas</div>
+    <div class="num">04</div>
+  </section>
+
+  <!-- ─── CONCEITO CENTRAL ─────────────────────── -->
+  <section class="slide-citacao">
+    <div class="tag">Conceito central</div>
+    <blockquote style="border-left-color: var(--ambar); color: var(--branco); font-size: 0.85em; margin-top: 24px;">
+      "Você nunca busca no site<br>
+      da companhia que opera.<br><br>
+      <strong>Você busca no programa certo.</strong>"
+    </blockquote>
+    <div class="rodape">eujuntomilhas</div>
+    <div class="num">05</div>
+  </section>
+
+  <!-- ─── SEÇÃO 2 ──────────────────────────────── -->
+  <section class="slide-secao">
+    <div class="tag">Bloco 2</div>
+    <h1 style="font-size:1.6em; color: var(--verde-musgo);">Como o mundo<br>aéreo funciona</h1>
+    <div class="rodape" style="color: rgba(79,111,82,0.5);">eujuntomilhas</div>
+    <div class="num">06</div>
+  </section>
+
+  <!-- ─── ALIANÇAS ──────────────────────────────── -->
+  <section class="slide-conteudo">
+    <div class="tag">As 3 alianças</div>
+    <h2>Alianças Aéreas</h2>
+    <table>
+      <tr>
+        <th>Aliança</th>
+        <th>Membros relevantes</th>
+        <th>Programa destaque</th>
+      </tr>
+      <tr>
+        <td><strong>Star Alliance</strong></td>
+        <td>United · TAP · Lufthansa · Singapore · Air Canada</td>
+        <td>United MileagePlus · Aeroplan</td>
+      </tr>
+      <tr>
+        <td><strong>Oneworld</strong></td>
+        <td>American · British · Iberia · LATAM · Qatar · Cathay</td>
+        <td>LATAM Pass · Iberia Plus</td>
+      </tr>
+      <tr>
+        <td><strong>SkyTeam</strong></td>
+        <td>Air France · Delta · KLM · Korean Air</td>
+        <td>Flying Blue</td>
+      </tr>
+    </table>
+    <div class="rodape">eujuntomilhas</div>
+    <div class="num">07</div>
+  </section>
+
+  <!-- ─── O QUE AS ALIANÇAS PERMITEM ───────────── -->
+  <section class="slide-conteudo">
+    <div class="tag">Como funcionam</div>
+    <h2>O que cada aliança permite</h2>
+    <ul style="margin-top: 16px;">
+      <li>Emitir em qualquer parceira da mesma aliança com o seu programa</li>
+      <li>Disponibilidade compartilhada entre os membros</li>
+      <li>Rotas complementares — uma cobre onde a outra não chega</li>
+    </ul>
+    <hr>
+    <p style="font-family:'Caveat',cursive; font-size:0.65em; color:var(--terracota);">
+      Exemplo: voo Lufthansa pode ser emitido com milhas United.<br>
+      Voo British pode ser emitido com Iberia ou American.
+    </p>
+    <div class="rodape">eujuntomilhas</div>
+    <div class="num">08</div>
+  </section>
+
+  <!-- ─── PARCERIAS BILATERAIS ──────────────────── -->
+  <section class="slide-destaque">
+    <div class="tag">Fora das alianças</div>
+    <h2>Parcerias bilaterais brasileiras</h2>
+    <div class="grid-2" style="margin-top: 16px;">
+      <div class="col">
+        <h3>Smiles (Gol)</h3>
+        <ul>
+          <li>→ Qatar Airways</li>
+          <li>→ Etihad</li>
+          <li>→ TAP</li>
+        </ul>
+      </div>
+      <div class="col">
+        <h3>TudoAzul</h3>
+        <ul>
+          <li>→ Emirates</li>
+          <li>→ United</li>
+          <li>→ TAP</li>
+        </ul>
+      </div>
+    </div>
+    <div class="grid-2" style="margin-top: 20px;">
+      <div class="col">
+        <h3>LATAM Pass</h3>
+        <ul>
+          <li>→ Delta</li>
+        </ul>
+      </div>
+      <div class="col">
+        <h3>Aeroplan</h3>
+        <ul>
+          <li>→ Emirates</li>
+        </ul>
+      </div>
+    </div>
+    <div class="rodape">eujuntomilhas</div>
+    <div class="num">09</div>
+  </section>
+
+  <!-- ─── SEÇÃO 3 ──────────────────────────────── -->
+  <section class="slide-secao">
+    <div class="tag">Bloco 3</div>
+    <h1 style="font-size:1.6em; color: var(--verde-musgo);">Estruturas<br>de rota</h1>
+    <div class="rodape" style="color: rgba(79,111,82,0.5);">eujuntomilhas</div>
+    <div class="num">10</div>
+  </section>
+
+  <!-- ─── ESTRUTURAS PARTE 1 ────────────────────── -->
+  <section class="slide-conteudo">
+    <div class="tag">Estruturas fundamentais</div>
+    <h2>Open Jaw &amp; Circle Trip</h2>
+    <div class="grid-2">
+      <div class="col">
+        <h3>Open Jaw</h3>
+        <ul>
+          <li>Chega em uma cidade</li>
+          <li>Sai de outra</li>
+          <li>Deslocamento terrestre sem milhas</li>
+          <li style="margin-top:8px; font-style:italic; opacity:0.8;">Ex: GRU→CDG / FCO→GRU</li>
+        </ul>
+      </div>
+      <div class="col">
+        <h3>Circle Trip</h3>
+        <ul>
+          <li>Mesma origem e destino</li>
+          <li>Rotas diferentes na ida e volta</li>
+          <li>Voa por dois lados do mundo</li>
+          <li style="margin-top:8px; font-style:italic; opacity:0.8;">Ex: GRU→NRT via LAX / NRT→GRU via HKG</li>
+        </ul>
+      </div>
+    </div>
+    <div class="rodape">eujuntomilhas</div>
+    <div class="num">11</div>
+  </section>
+
+  <!-- ─── ESTRUTURAS PARTE 2 ────────────────────── -->
+  <section class="slide-conteudo">
+    <div class="tag">Estruturas fundamentais</div>
+    <h2>Stopover &amp; Layover</h2>
+    <div class="grid-2">
+      <div class="col">
+        <h3>Stopover</h3>
+        <ul>
+          <li>Parada voluntária +24h</li>
+          <li>Muitos programas permitem 1 grátis</li>
+          <li>Destino extra sem custo de milhas</li>
+          <li style="margin-top:8px; font-style:italic; opacity:0.8;">Ex: Dubai 3 dias a caminho de Bangkok</li>
+        </ul>
+      </div>
+      <div class="col">
+        <h3>Long Layover</h3>
+        <ul>
+          <li>Conexão longa (10–20h)</li>
+          <li>Não conta como stopover</li>
+          <li>Explorar a cidade de conexão</li>
+          <li style="margin-top:8px; font-style:italic; opacity:0.8;">Dubai · Doha · Istanbul</li>
+        </ul>
+      </div>
+    </div>
+    <div class="rodape">eujuntomilhas</div>
+    <div class="num">12</div>
+  </section>
+
+  <!-- ─── SEÇÃO 4 ──────────────────────────────── -->
+  <section class="slide-secao">
+    <div class="tag">Bloco 4</div>
+    <h1 style="font-size:1.5em; color: var(--verde-musgo);">Sweet Spots<br>&amp; Married Segments</h1>
+    <div class="rodape" style="color: rgba(79,111,82,0.5);">eujuntomilhas</div>
+    <div class="num">13</div>
+  </section>
+
+  <!-- ─── SWEET SPOTS ───────────────────────────── -->
+  <section class="slide-conteudo">
+    <div class="tag">Sweet Spots</div>
+    <h2>O que são e como identificar</h2>
+    <ul style="margin-top:12px;">
+      <li>Combinações de rota + programa com custo desproporcialmente baixo</li>
+      <li>Resultado de tabelas que não acompanharam a inflação aérea</li>
+    </ul>
+    <hr>
+    <h3 style="margin-top:16px;">Exemplos clássicos</h3>
+    <ul>
+      <li>TAP Miles&amp;Go: Europa → Brasil Business por <span class="tc">120.000 pontos</span></li>
+      <li>Iberia Plus: Brasil → Europa Economy por <span class="tc">20.000 Avios</span></li>
+      <li>Smiles: GRU → Cidade do Cabo Business por <span class="tc">173.000 milhas</span></li>
+    </ul>
+    <div class="rodape">eujuntomilhas</div>
+    <div class="num">14</div>
+  </section>
+
+  <!-- ─── MARRIED SEGMENTS ─────────────────────── -->
+  <section class="slide-conteudo">
+    <div class="tag">Married Segments</div>
+    <h2>O que são e como contornar</h2>
+    <ul style="margin-top:12px;">
+      <li>Trechos que a companhia vincula para controle de disponibilidade</li>
+      <li>O sistema só mostra o assento award se buscar os dois juntos</li>
+    </ul>
+    <hr>
+    <h3 style="margin-top:16px;">Married Segment Break</h3>
+    <ul>
+      <li>Buscar o trecho completo para confirmar disponibilidade</li>
+      <li>Usar programa parceiro que enxerga diferente</li>
+      <li>Seats.aero ajuda a identificar onde a disponibilidade aparece</li>
+    </ul>
+    <div class="rodape">eujuntomilhas</div>
+    <div class="num">15</div>
+  </section>
+
+  <!-- ─── SEÇÃO 5 ──────────────────────────────── -->
+  <section class="slide-secao">
+    <div class="tag">Bloco 5</div>
+    <h1 style="font-size:1.5em; color: var(--verde-musgo);">Pensamento<br>estratégico<br>antes da busca</h1>
+    <div class="rodape" style="color: rgba(79,111,82,0.5);">eujuntomilhas</div>
+    <div class="num">16</div>
+  </section>
+
+  <!-- ─── SEQUÊNCIA CORRETA ────────────────────── -->
+  <section class="slide-conteudo">
+    <div class="tag">A sequência</div>
+    <h2>Pensar antes de abrir o site</h2>
+    <ul style="margin-top:12px; counter-reset: step;">
+      <li>Defina o destino (ou região)</li>
+      <li>Defina a classe (economy, business, first)</li>
+      <li>Mapeie quem opera aquela rota</li>
+      <li>Identifique os programas parceiros que emitem nessa companhia</li>
+      <li>Verifique qual programa você tem milhas / qual tem melhor tabela</li>
+      <li><strong>Então abra o site para buscar</strong></li>
+    </ul>
+    <div class="rodape">eujuntomilhas</div>
+    <div class="num">17</div>
+  </section>
+
+  <!-- ─── O QUE NÃO FAZER ──────────────────────── -->
+  <section class="slide-destaque">
+    <div class="tag">Erros comuns</div>
+    <h2>O que não fazer</h2>
+    <ul style="margin-top:20px;">
+      <li>Abrir o site da companhia aérea e buscar direto</li>
+      <li>Buscar em um único programa sem verificar alternativas</li>
+      <li>Decidir pelo número de milhas sem calcular o valor real</li>
+      <li>Emitir sem comparar com a passagem paga equivalente</li>
+    </ul>
+    <div class="rodape">eujuntomilhas</div>
+    <div class="num">18</div>
+  </section>
+
+  <!-- ─── FECHAMENTO ───────────────────────────── -->
+  <section class="slide-fechamento">
+    <div class="tag">Para fechar</div>
+    <blockquote style="border-left-color: var(--ambar); color: var(--branco); font-size: 0.65em; margin-top:24px;">
+      "Via de regra, emissões award são melhores que passagens pagas.<br>
+      Mas existem exceções.<br><br>
+      Sempre compare todas as opções antes de emitir.<br>
+      <strong>A melhor emissão é sempre a que entrega mais valor.</strong>"
+    </blockquote>
+    <div class="rodape">eujuntomilhas</div>
+    <div class="num">19</div>
+  </section>
+
+  <!-- ─── RESUMO ───────────────────────────────── -->
+  <section class="slide-resumo">
+    <div class="tag">Resumo da Aula 1</div>
+    <h2>O que você leva hoje</h2>
+    <table style="margin-top:12px;">
+      <tr>
+        <th>Conceito</th>
+        <th>O que aprendemos</th>
+      </tr>
+      <tr><td>Award vs comercial</td><td>Award usa milhas — entrega muito mais valor na maioria dos casos</td></tr>
+      <tr><td>Alianças</td><td>3 alianças com parceiras que compartilham disponibilidade</td></tr>
+      <tr><td>Parcerias bilaterais</td><td>Smiles / Azul / LATAM têm acordos fora das alianças</td></tr>
+      <tr><td>Estruturas de rota</td><td>Open Jaw, Stopover e Side Trip são ferramentas de roteiro inteligente</td></tr>
+      <tr><td>Sweet Spots</td><td>Onde milhas valem muito mais — saber identificar</td></tr>
+      <tr><td>Estratégia</td><td>Pensar o roteiro antes de abrir qualquer site</td></tr>
+    </table>
+    <div class="rodape">eujuntomilhas</div>
+    <div class="num">20</div>
+  </section>
+
+  <!-- ─── ENCERRAMENTO ─────────────────────────── -->
+  <section class="slide-capa">
+    <h1 style="font-size:1.6em; color:var(--branco); margin-top: 80px;">Até a<br>Aula 2.</h1>
+    <p style="color:var(--branco); opacity:0.8; margin-top:32px; font-size:0.48em;">
+      Tabelas que importam — lógica de precificação e sweet spots reais
+    </p>
+    <p style="color:var(--ambar); font-family:'Caveat',cursive; font-size:0.65em; margin-top:48px;">
+      @eujuntomilhas
+    </p>
+    <div class="rodape">eujuntomilhas</div>
+  </section>
+
+</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@4.6.0/dist/reveal.js"></script>
+<script>
+  Reveal.initialize({
+    hash: true,
+    slideNumber: false,
+    controls: true,
+    progress: true,
+    center: false,
+    transition: 'fade',
+    transitionSpeed: 'fast',
+    width: 1280,
+    height: 720,
+    margin: 0,
+    minScale: 0.2,
+    maxScale: 2.0,
+  });
+</script>
+</body>
+</html>
