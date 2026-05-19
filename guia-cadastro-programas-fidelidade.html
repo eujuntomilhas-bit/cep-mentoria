@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Guia de Cadastro — Programas de Fidelidade</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #f5f3ef;
+      color: #2c2c2c;
+      padding: 40px 20px;
+    }
+
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    header h1 {
+      font-size: 2rem;
+      color: #1a1a2e;
+      margin-bottom: 8px;
+    }
+
+    header .subtitle {
+      font-size: 0.95rem;
+      color: #666;
+      background: #fff8e7;
+      border-left: 4px solid #c8a84b;
+      padding: 12px 16px;
+      text-align: left;
+      border-radius: 4px;
+      margin-top: 16px;
+    }
+
+    h2 {
+      font-size: 1.3rem;
+      color: #1a1a2e;
+      border-bottom: 2px solid #c8a84b;
+      padding-bottom: 6px;
+      margin: 40px 0 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 10px;
+      padding: 20px 24px;
+      margin-bottom: 16px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
+    .card-number {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #c8a84b;
+      min-width: 36px;
+      text-align: center;
+      padding-top: 2px;
+    }
+
+    .card-body {
+      flex: 1;
+    }
+
+    .card-body h3 {
+      font-size: 1.1rem;
+      color: #1a1a2e;
+      margin-bottom: 8px;
+    }
+
+    .card-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .tag {
+      font-size: 0.78rem;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-weight: 600;
+    }
+
+    .tag-companhia { background: #eef2ff; color: #3730a3; }
+    .tag-moeda     { background: #f0fdf4; color: #166534; }
+    .tag-alianca   { background: #fef9c3; color: #854d0e; }
+
+    .destaque {
+      font-size: 0.85rem;
+      color: #555;
+      background: #fafafa;
+      border-left: 3px solid #c8a84b;
+      padding: 6px 10px;
+      border-radius: 3px;
+      margin-bottom: 12px;
+    }
+
+    .btn-cadastro {
+      display: inline-block;
+      background: #1a1a2e;
+      color: #fff;
+      text-decoration: none;
+      padding: 9px 20px;
+      border-radius: 6px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      transition: background 0.2s;
+    }
+
+    .btn-cadastro:hover {
+      background: #c8a84b;
+    }
+
+    .tabela-alianca {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 8px;
+      background: #fff;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    }
+
+    .tabela-alianca th {
+      background: #1a1a2e;
+      color: #fff;
+      padding: 12px 16px;
+      text-align: left;
+      font-size: 0.9rem;
+    }
+
+    .tabela-alianca td {
+      padding: 11px 16px;
+      font-size: 0.88rem;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .tabela-alianca tr:last-child td { border-bottom: none; }
+    .tabela-alianca tr:nth-child(even) td { background: #fafafa; }
+
+    .dica {
+      background: linear-gradient(135deg, #1a1a2e, #2d2d5e);
+      color: #fff;
+      border-radius: 10px;
+      padding: 24px 28px;
+      margin-top: 40px;
+      text-align: center;
+    }
+
+    .dica h2 {
+      color: #c8a84b;
+      border-bottom: none;
+      margin: 0 0 10px;
+      font-size: 1.2rem;
+    }
+
+    .dica p {
+      font-size: 0.95rem;
+      line-height: 1.6;
+      color: #e0e0e0;
+    }
+
+    .aviso {
+      background: #fff8e7;
+      border: 2px solid #c8a84b;
+      border-radius: 10px;
+      padding: 20px 24px;
+      margin-top: 20px;
+      text-align: left;
+    }
+
+    .aviso-titulo {
+      font-weight: 700;
+      color: #1a1a2e;
+      margin-bottom: 10px;
+      font-size: 0.95rem;
+    }
+
+    .aviso ul {
+      padding-left: 18px;
+      margin-bottom: 12px;
+      font-size: 0.9rem;
+      color: #444;
+      line-height: 1.8;
+    }
+
+    .aviso-destaque {
+      background: #1a1a2e;
+      color: #fff;
+      border-radius: 6px;
+      padding: 10px 14px;
+      font-size: 0.88rem;
+      line-height: 1.5;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 40px;
+      font-size: 0.8rem;
+      color: #999;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <header>
+    <h1>Guia de Cadastro<br>Programas de Fidelidade</h1>
+    <div class="subtitle">
+      O cadastro em todos os programas abaixo é <strong>gratuito</strong>. Quanto mais programas você tiver, maior sua flexibilidade para transferir e resgatar pontos.
+    </div>
+    <div class="aviso">
+      <div class="aviso-titulo">Antes de começar, tenha em mãos:</div>
+      <ul>
+        <li>Passaporte (ou RG/CPF para programas nacionais)</li>
+        <li>E-mail e telefone celular</li>
+        <li>Data de nascimento e endereço completo</li>
+      </ul>
+      <div class="aviso-destaque">Use seu nome <strong>exatamente como consta no passaporte</strong> — sem abreviações. Divergências de nome podem impedir o embarque ou o resgate de milhas.</div>
+    </div>
+  </header>
+
+  <!-- NACIONAIS -->
+  <h2>Programas Nacionais</h2>
+
+  <div class="card">
+    <div class="card-number">1</div>
+    <div class="card-body">
+      <h3>LATAM Pass</h3>
+      <div class="card-meta">
+        <span class="tag tag-companhia">LATAM Airlines</span>
+        <span class="tag tag-moeda">Milhas LATAM</span>
+        <span class="tag tag-alianca">Independente</span>
+      </div>
+      <a class="btn-cadastro" href="https://latampass.latam.com/pt_br/fazer-cadastro" target="_blank">Cadastre-se no LATAM Pass</a>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-number">2</div>
+    <div class="card-body">
+      <h3>Smiles</h3>
+      <div class="card-meta">
+        <span class="tag tag-companhia">GOL Linhas Aéreas</span>
+        <span class="tag tag-moeda">Milhas Smiles</span>
+        <span class="tag tag-alianca">Independente</span>
+      </div>
+      <a class="btn-cadastro" href="https://www.smiles.com.br/cadastre-se" target="_blank">Cadastre-se no Smiles</a>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-number">3</div>
+    <div class="card-body">
+      <h3>Azul Fidelidade (TudoAzul)</h3>
+      <div class="card-meta">
+        <span class="tag tag-companhia">Azul Linhas Aéreas</span>
+        <span class="tag tag-moeda">Pontos TudoAzul</span>
+        <span class="tag tag-alianca">Independente</span>
+      </div>
+      <a class="btn-cadastro" href="https://www.voeazul.com.br/br/pt/cadastro" target="_blank">Cadastre-se no Azul Fidelidade</a>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-number">4</div>
+    <div class="card-body">
+      <h3>Esfera</h3>
+      <div class="card-meta">
+        <span class="tag tag-companhia">Santander</span>
+        <span class="tag tag-moeda">Pontos Esfera</span>
+        <span class="tag tag-alianca">Independente</span>
+      </div>
+      <div class="destaque">Aberto para qualquer pessoa com CPF, mesmo sem cartão Santander</div>
+      <a class="btn-cadastro" href="https://www.esfera.com.vc/crie-sua-conta" target="_blank">Cadastre-se na Esfera</a>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-number">5</div>
+    <div class="card-body">
+      <h3>Livelo</h3>
+      <div class="card-meta">
+        <span class="tag tag-companhia">Bradesco + Banco do Brasil</span>
+        <span class="tag tag-moeda">Pontos Livelo</span>
+        <span class="tag tag-alianca">Independente</span>
+      </div>
+      <div class="destaque">Maior programa de recompensas do Brasil</div>
+      <a class="btn-cadastro" href="https://www.livelo.com.br/" target="_blank">Cadastre-se na Livelo</a>
+    </div>
+  </div>
+
+  <!-- INTERNACIONAIS -->
+  <h2>Programas Internacionais</h2>
+
+  <div class="card">
+    <div class="card-number">6</div>
+    <div class="card-body">
+      <h3>Iberia Plus (Club Iberia)</h3>
+      <div class="card-meta">
+        <span class="tag tag-companhia">Iberia — Espanha</span>
+        <span class="tag tag-moeda">Avios</span>
+        <span class="tag tag-alianca">oneworld</span>
+      </div>
+      <div class="destaque">Avios são compartilhados com British Airways e Finnair</div>
+      <a class="btn-cadastro" href="https://www.iberia.com/us/registration/" target="_blank">Cadastre-se no Iberia Plus</a>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-number">7</div>
+    <div class="card-body">
+      <h3>TAP Miles&amp;Go</h3>
+      <div class="card-meta">
+        <span class="tag tag-companhia">TAP Air Portugal</span>
+        <span class="tag tag-moeda">Miles</span>
+        <span class="tag tag-alianca">Star Alliance</span>
+      </div>
+      <a class="btn-cadastro" href="https://www.flytap.com/en-us/sign-up" target="_blank">Cadastre-se no TAP Miles&amp;Go</a>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-number">8</div>
+    <div class="card-body">
+      <h3>The British Airways Club</h3>
+      <div class="card-meta">
+        <span class="tag tag-companhia">British Airways — Reino Unido</span>
+        <span class="tag tag-moeda">Avios</span>
+        <span class="tag tag-alianca">oneworld</span>
+      </div>
+      <div class="destaque">Avios compartilhados com Iberia Plus e Finnair</div>
+      <a class="btn-cadastro" href="https://www.britishairways.com/content/the-british-airways-club" target="_blank">Cadastre-se no British Airways Club</a>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-number">9</div>
+    <div class="card-body">
+      <h3>Finnair Plus</h3>
+      <div class="card-meta">
+        <span class="tag tag-companhia">Finnair — Finlândia</span>
+        <span class="tag tag-moeda">Avios</span>
+        <span class="tag tag-alianca">oneworld</span>
+      </div>
+      <div class="destaque">Usa Avios desde março de 2024; parte do ecossistema oneworld</div>
+      <a class="btn-cadastro" href="https://auth.finnair.com/content/en/join/finnair-plus/" target="_blank">Cadastre-se no Finnair Plus</a>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-number">10</div>
+    <div class="card-body">
+      <h3>Qatar Airways Privilege Club</h3>
+      <div class="card-meta">
+        <span class="tag tag-companhia">Qatar Airways — Catar</span>
+        <span class="tag tag-moeda">Avios</span>
+        <span class="tag tag-alianca">oneworld</span>
+      </div>
+      <div class="destaque">Uma das melhores classes executivas do mundo para resgates</div>
+      <a class="btn-cadastro" href="https://www.qatarairways.com/en/Privilege-Club/join-now.html" target="_blank">Cadastre-se no Privilege Club</a>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-number">11</div>
+    <div class="card-body">
+      <h3>AAdvantage (American Airlines)</h3>
+      <div class="card-meta">
+        <span class="tag tag-companhia">American Airlines — EUA</span>
+        <span class="tag tag-moeda">Milhas AAdvantage</span>
+        <span class="tag tag-alianca">oneworld</span>
+      </div>
+      <div class="destaque">Site disponível em português para brasileiros</div>
+      <a class="btn-cadastro" href="https://www.aa.com/loyalty/enrollment/enroll?locale=pt_BR" target="_blank">Cadastre-se no AAdvantage</a>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-number">12</div>
+    <div class="card-body">
+      <h3>LifeMiles (Avianca)</h3>
+      <div class="card-meta">
+        <span class="tag tag-companhia">Avianca</span>
+        <span class="tag tag-moeda">Miles LifeMiles</span>
+        <span class="tag tag-alianca">Star Alliance</span>
+      </div>
+      <div class="destaque">Muito usado por brasileiros para resgates em Star Alliance</div>
+      <a class="btn-cadastro" href="https://www.lifemiles.com/discover/landing-page/unete" target="_blank">Cadastre-se no LifeMiles</a>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-number">13</div>
+    <div class="card-body">
+      <h3>Suma (Air Europa)</h3>
+      <div class="card-meta">
+        <span class="tag tag-companhia">Air Europa — Espanha</span>
+        <span class="tag tag-moeda">Milhas Suma</span>
+        <span class="tag tag-alianca">SkyTeam</span>
+      </div>
+      <div class="destaque">Excelente para voos entre Brasil e Europa com conexão em Madri</div>
+      <a class="btn-cadastro" href="https://www.aireuropa.com/br/pt/aea/suma/cadastre-se.html" target="_blank">Cadastre-se no Suma</a>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-number">14</div>
+    <div class="card-body">
+      <h3>Flying Blue (Air France / KLM)</h3>
+      <div class="card-meta">
+        <span class="tag tag-companhia">Air France &amp; KLM</span>
+        <span class="tag tag-moeda">Miles Flying Blue</span>
+        <span class="tag tag-alianca">SkyTeam</span>
+      </div>
+      <div class="destaque">Promoções mensais de resgate com até 50% de desconto em milhas</div>
+      <a class="btn-cadastro" href="https://wwws.airfrance.com.br/information/flyingblue/discover-flying-blue" target="_blank">Cadastre-se no Flying Blue</a>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-number">15</div>
+    <div class="card-body">
+      <h3>Flying Club (Virgin Atlantic)</h3>
+      <div class="card-meta">
+        <span class="tag tag-companhia">Virgin Atlantic — Reino Unido</span>
+        <span class="tag tag-moeda">Virgin Points</span>
+        <span class="tag tag-alianca">SkyTeam</span>
+      </div>
+      <div class="destaque">Excelentes resgates em voos da Delta e Air France/KLM</div>
+      <a class="btn-cadastro" href="https://www.virginatlantic.com/en-US/flying-club" target="_blank">Cadastre-se no Flying Club</a>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-number">16</div>
+    <div class="card-body">
+      <h3>Aeroplan (Air Canada)</h3>
+      <div class="card-meta">
+        <span class="tag tag-companhia">Air Canada — Canadá</span>
+        <span class="tag tag-moeda">Pontos Aeroplan</span>
+        <span class="tag tag-alianca">Star Alliance</span>
+      </div>
+      <div class="destaque">Um dos melhores programas para resgates em Star Alliance sem taxas de combustível</div>
+      <a class="btn-cadastro" href="https://www.aircanada.com/ca/en/aco/home/aeroplan.html" target="_blank">Cadastre-se no Aeroplan</a>
+    </div>
+  </div>
+
+  <!-- TABELA RESUMO -->
+  <h2>Resumo por Aliança</h2>
+  <table class="tabela-alianca">
+    <thead>
+      <tr>
+        <th>Aliança</th>
+        <th>Programas</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>oneworld</strong></td>
+        <td>Iberia Plus, British Airways Club, Finnair Plus, Qatar Privilege Club, AAdvantage</td>
+      </tr>
+      <tr>
+        <td><strong>Star Alliance</strong></td>
+        <td>TAP Miles&amp;Go, LifeMiles (Avianca), Aeroplan (Air Canada)</td>
+      </tr>
+      <tr>
+        <td><strong>SkyTeam</strong></td>
+        <td>Flying Blue (Air France/KLM), Flying Club (Virgin Atlantic), Suma (Air Europa)</td>
+      </tr>
+      <tr>
+        <td><strong>Independentes</strong></td>
+        <td>LATAM Pass, Smiles (GOL), Azul Fidelidade, Esfera, Livelo</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- DICA DE OURO -->
+  <div class="dica">
+    <h2>Dica de Ouro</h2>
+    <p>Cadastre-se em <strong>todos</strong> os programas agora, mesmo sem pontos.<br>
+    Muitas promoções de bônus são exclusivas para membros já cadastrados.<br>
+    Ter a conta aberta não custa nada e garante que você não perca oportunidades.</p>
+  </div>
+
+  <footer>
+    Guia de Cadastro — Programas de Fidelidade
+  </footer>
+
+</div>
+</body>
+</html>
