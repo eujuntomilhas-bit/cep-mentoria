@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aula 2 — Técnicas de Busca | CEP · Código da Emissão Perfeita</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gabriela&family=Roboto:wght@400;500;600;700&family=Caveat:wght@400;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.6.0/dist/reset.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.6.0/dist/reveal.css">
+
+  <style>
+    /* ── Brand tokens ── */
+    :root {
+      --verde-musgo:  #4F6F52;
+      --verde-salvia: #8FAF9A;
+      --terracota:    #D97A3A;
+      --ambar:        #E6A15A;
+      --offwhite:     #F4F1EC;
+      --branco:       #FFFFFF;
+    }
+
+    /* ── Base ── */
+    .reveal {
+      font-family: 'Roboto', sans-serif;
+      font-size: 36px;
+      color: var(--verde-musgo);
+      background: var(--offwhite);
+    }
+
+    .reveal .slides section {
+      text-align: left;
+      padding: 60px 80px;
+      box-sizing: border-box;
+    }
+
+    /* ── Slide layouts ── */
+    .slide-capa        { background: var(--terracota); }
+    .slide-citacao     { background: var(--verde-musgo); }
+    .slide-secao       { background: var(--verde-salvia); }
+    .slide-conteudo    { background: var(--offwhite); }
+    .slide-destaque    { background: var(--verde-musgo); }
+    .slide-fechamento  { background: var(--terracota); }
+    .slide-resumo      { background: var(--offwhite); }
+    .slide-pratica     { background: #2C3E35; }
+
+    /* ── Tipografia ── */
+    h1, h2 {
+      font-family: 'Gabriela', serif;
+      font-weight: 400;
+      line-height: 1.1;
+      margin: 0 0 24px 0;
+    }
+
+    h3 {
+      font-family: 'Roboto', sans-serif;
+      font-weight: 700;
+      font-size: 0.7em;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin: 0 0 16px 0;
+    }
+
+    p, li {
+      font-family: 'Roboto', sans-serif;
+      font-weight: 400;
+      font-size: 0.55em;
+      line-height: 1.6;
+      margin: 0 0 8px 0;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    ul li::before {
+      content: "—";
+      margin-right: 12px;
+      color: var(--terracota);
+      font-weight: 700;
+    }
+
+    .slide-citacao ul li::before,
+    .slide-destaque ul li::before,
+    .slide-secao ul li::before,
+    .slide-pratica ul li::before {
+      color: var(--ambar);
+    }
+
+    .caveat {
+      font-family: 'Caveat', cursive;
+      font-size: 1em;
+    }
+
+    /* ── Cores por layout ── */
+    .slide-capa h1,
+    .slide-capa p,
+    .slide-capa .sub {
+      color: var(--branco);
+    }
+
+    .slide-citacao h1,
+    .slide-citacao h2,
+    .slide-citacao p,
+    .slide-citacao li,
+    .slide-citacao blockquote {
+      color: var(--branco);
+    }
+
+    .slide-secao h1,
+    .slide-secao h2,
+    .slide-secao h3,
+    .slide-secao p {
+      color: var(--verde-musgo);
+    }
+
+    .slide-destaque h1,
+    .slide-destaque h2,
+    .slide-destaque h3,
+    .slide-destaque p,
+    .slide-destaque li {
+      color: var(--branco);
+    }
+
+    .slide-fechamento h1,
+    .slide-fechamento h2,
+    .slide-fechamento p,
+    .slide-fechamento blockquote {
+      color: var(--branco);
+    }
+
+    .slide-conteudo h2,
+    .slide-conteudo h3 {
+      color: var(--verde-musgo);
+    }
+
+    .slide-conteudo li {
+      color: #2a2a2a;
+    }
+
+    .slide-resumo h2,
+    .slide-resumo h3 {
+      color: var(--verde-musgo);
+    }
+
+    .slide-pratica h1,
+    .slide-pratica h2,
+    .slide-pratica h3,
+    .slide-pratica p,
+    .slide-pratica li {
+      color: var(--branco);
+    }
+
+    /* ── Componentes ── */
+    .tag {
+      display: inline-block;
+      background: var(--terracota);
+      color: var(--branco);
+      font-family: 'Roboto', sans-serif;
+      font-size: 0.38em;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 6px 18px;
+      border-radius: 100px;
+      margin-bottom: 24px;
+    }
+
+    .slide-destaque .tag,
+    .slide-citacao .tag,
+    .slide-pratica .tag {
+      background: var(--ambar);
+      color: var(--verde-musgo);
+    }
+
+    .slide-secao .tag {
+      background: var(--verde-musgo);
+      color: var(--branco);
+    }
+
+    blockquote {
+      border-left: 4px solid var(--ambar);
+      margin: 0;
+      padding: 16px 32px;
+      font-family: 'Gabriela', serif;
+      font-size: 0.65em;
+      line-height: 1.5;
+      font-style: italic;
+    }
+
+    .slide-conteudo blockquote {
+      color: var(--verde-musgo);
+      border-left-color: var(--terracota);
+    }
+
+    /* Tabela */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.44em;
+      margin-top: 16px;
+    }
+
+    th {
+      background: var(--verde-musgo);
+      color: var(--branco);
+      font-family: 'Roboto', sans-serif;
+      font-weight: 700;
+      padding: 10px 16px;
+      text-align: left;
+      letter-spacing: 0.04em;
+    }
+
+    td {
+      padding: 10px 16px;
+      border-bottom: 1px solid #ddd;
+      color: #2a2a2a;
+    }
+
+    tr:nth-child(even) td {
+      background: rgba(79,111,82,0.06);
+    }
+
+    /* Grid duas colunas */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      margin-top: 16px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 24px;
+      margin-top: 16px;
+    }
+
+    .col {
+      background: rgba(79,111,82,0.07);
+      border-radius: 12px;
+      padding: 24px 28px;
+    }
+
+    .slide-destaque .col,
+    .slide-pratica .col {
+      background: rgba(255,255,255,0.1);
+    }
+
+    .col h3 {
+      font-size: 0.5em;
+      margin-bottom: 12px;
+    }
+
+    .col ul li {
+      font-size: 0.85em;
+    }
+
+    /* Rodapé */
+    .rodape {
+      position: absolute;
+      bottom: 28px;
+      right: 60px;
+      font-family: 'Roboto', sans-serif;
+      font-size: 0.3em;
+      color: rgba(79,111,82,0.45);
+      letter-spacing: 0.04em;
+    }
+
+    .slide-capa .rodape,
+    .slide-citacao .rodape,
+    .slide-destaque .rodape,
+    .slide-fechamento .rodape,
+    .slide-pratica .rodape {
+      color: rgba(255,255,255,0.45);
+    }
+
+    .slide-secao .rodape {
+      color: rgba(79,111,82,0.55);
+    }
+
+    /* Número do slide */
+    .num {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: 'Roboto', sans-serif;
+      font-size: 0.32em;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      opacity: 0.6;
+      color: var(--verde-musgo);
+    }
+
+    .slide-capa .num,
+    .slide-citacao .num,
+    .slide-destaque .num,
+    .slide-fechamento .num,
+    .slide-pratica .num {
+      color: rgba(255,255,255,0.7);
+      opacity: 1;
+    }
+
+    .slide-secao .num {
+      color: var(--verde-musgo);
+      opacity: 0.6;
+    }
+
+    /* Destaque inline terracota */
+    .tc { color: var(--terracota); font-weight: 700; }
+    .slide-destaque .tc,
+    .slide-citacao .tc,
+    .slide-pratica .tc { color: var(--ambar); }
+
+    /* Separador */
+    hr {
+      border: none;
+      border-top: 2px solid var(--ambar);
+      margin: 20px 0;
+      opacity: 0.4;
+    }
+
+    /* Pill de ferramenta */
+    .pill {
+      display: inline-block;
+      background: var(--ambar);
+      color: var(--verde-musgo);
+      font-size: 0.38em;
+      font-weight: 700;
+      padding: 4px 14px;
+      border-radius: 100px;
+      margin-right: 6px;
+      margin-bottom: 6px;
+    }
+
+    .pill-verde {
+      display: inline-block;
+      background: var(--verde-musgo);
+      color: var(--branco);
+      font-size: 0.38em;
+      font-weight: 700;
+      padding: 4px 14px;
+      border-radius: 100px;
+      margin-right: 6px;
+      margin-bottom: 6px;
+    }
+
+    /* Alerta / aviso */
+    .aviso {
+      background: rgba(217,122,58,0.15);
+      border-left: 4px solid var(--terracota);
+      border-radius: 0 8px 8px 0;
+      padding: 14px 20px;
+      margin-top: 16px;
+      font-size: 0.5em;
+      color: #2a2a2a;
+    }
+
+    .slide-destaque .aviso,
+    .slide-pratica .aviso {
+      background: rgba(230,161,90,0.2);
+      border-left-color: var(--ambar);
+      color: var(--branco);
+    }
+
+    /* Step numerado */
+    .steps {
+      counter-reset: step;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .steps li {
+      counter-increment: step;
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 14px;
+    }
+
+    .steps li::before {
+      content: counter(step);
+      background: var(--terracota);
+      color: var(--branco);
+      font-weight: 700;
+      font-size: 0.85em;
+      min-width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .slide-destaque .steps li::before,
+    .slide-pratica .steps li::before {
+      background: var(--ambar);
+      color: var(--verde-musgo);
+    }
+  </style>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+
+  <!-- ─── CAPA ─────────────────────────────────────── -->
+  <section class="slide-capa">
+    <div class="tag">CEP — Código da Emissão Perfeita</div>
+    <h1 style="font-size:1.7em; margin-top: 8px;">Técnicas Avançadas<br>de Busca e<br>Comparação</h1>
+    <p style="margin-top:32px; font-size:0.5em; opacity:0.85;">Aula 2 &nbsp;·&nbsp; Bruna Araújo &nbsp;·&nbsp; @eujuntomilhas</p>
+    <div class="rodape">eujuntomilhas</div>
+  </section>
+
+  <!-- ─── FRASE DE ABERTURA ─────────────────────────── -->
+  <section class="slide-citacao">
+    <div class="tag">A virada de chave</div>
+    <blockquote style="border-left-color: var(--ambar); color: var(--branco); font-size: 0.8em; margin-top: 24px;">
+      "Você não precisa de mais milhas.<br>
+      Você precisa achar<br>
+      <strong>as passagens certas.</strong>"
+    </blockquote>
+    <p style="margin-top: 36px; font-family: 'Caveat', cursive; font-size: 0.7em; color: var(--ambar);">
+      A maioria das pessoas acumula sem saber buscar.
+    </p>
+    <div class="rodape">eujuntomilhas</div>
+    <div class="num">01</div>
+  </section>
+
+  <!-- ─── O PROBLEMA ───────────────────────────────── -->
+  <section class="slide-conteudo">
+    <div class="tag">O problema comum</div>
+    <h2>Por que as buscas falham</h2>
+    <ul style="margin-top:16px;">
+      <li>Buscar <strong>só no site da cia aérea</strong> — que raramente mostra disponibilidade award</li>
+      <li>Usar um único programa para buscar — e concluir que não há vaga</li>
+      <li>Transferir pontos antes de confirmar a disponibilidade</li>
+      <li>Não saber que o assento existe em outro programa ou rota</li>
+    </ul>
+    <div class="aviso">
+      Disponibilidade award depende de <strong>onde e como você busca</strong> — não só de quantos assentos existem.
+    </div>
+    <div class="rodape">eujuntomilhas</div>
+    <div class="num">02</div>
+  </section>
+
+  <!-- ─── SEÇÃO 1 ───────────────────────────────────── -->
+  <section class="slide-secao">
+    <div class="tag">Bloco 1</div>
+    <h1 style="font-size:1.5em; color: var(--verde-musgo);">Ferramentas<br>internacionais<br>de busca</h1>
+    <div class="rodape" style="color: rgba(79,111,82,0.5);">eujuntomilhas</div>
+    <div class="num">03</div>
+  </section>
+
+  <!-- ─── LÓGICA DOS SITES ──────────────────────────── -->
+  <section class="slide-conteudo">
+    <div class="tag">Como funciona</div>
+    <h2>Por que buscar em sites internacionais</h2>
+    <ul style="margin-top:16px;">
+      <li>Cada programa tem <strong>acesso diferente</strong> ao inventário award das parceiras</li>
+      <li>Um assento que não aparece no Smiles pode aparecer no United ou ANA</li>
+      <li>Sites internacionais mostram disponibilidade em calendário — mês inteiro de uma vez</li>
+      <li>Permitem confirmar vaga antes de qualquer transferência de pontos</li>
+    </ul>
+    <p style="font-family:'Caveat',cursive; font-size:0.65em; color:var(--terracota); margin-top:20px;">
+      Buscar em múltiplos lugares é parte do método — não é gambiarra.
+    </p>
+    <div class="rodape">eujuntomilhas</div>
+    <div class="num">04</div>
+  </section>
+
+  <!-- ─── UNITED ────────────────────────────────────── -->
+  <section class="slide-conteudo">
+    <div class="tag">Ferramenta 1</div>
+    <h2>United MileagePlus</h2>
+    <div class="grid-2">
+      <div class="col">
+        <h3>Para que serve</h3>
+        <ul>
+          <li>Busca em toda a Star Alliance</li>
+          <li>Acesso a: Lufthansa, Singapore, ANA, TAP, Air Canada</li>
+          <li>Também permite buscar voos da <strong>Azul</strong> em tarifa award</li>
+          <li>Calendário de disponibilidade mensal</li>
+          <li>Mostra mix de companhias no mesmo trecho</li>
+        </ul>
+      </div>
+      <div class="col">
+        <h3>Como usar</h3>
+        <ul>
+          <li>Crie uma conta gratuita em united.com</li>
+          <li>Acesse "Book with miles"</li>
+          <li>Ative a visão de calendário</li>
+          <li>Selecione a cabine desejada antes de buscar</li>
+        </ul>
+      </div>
+    </div>
+    <div class="rodape">eujuntomilhas</div>
+    <div class="num">05</div>
+  </section>
+
+  <!-- ─── AIR CANADA ────────────────────────────────── -->
+  <section class="slide-conteudo">
+    <div class="tag">Ferramenta 2</div>
+    <h2>Air Canada Aeroplan</h2>
+    <div class="grid-2">
+      <div class="col">
+        <h3>Diferenciais</h3>
+        <ul>
+          <li>Star Alliance + parceiras bilaterais: Emirates, <strong>Azul</strong>, Swiss, Lufthansa</li>
+          <li>Stopover gratuito incluído na emissão — em qualquer conexão do roteiro</li>
+          <li>Permite ver disponibilidade por cabine separada</li>
+          <li>Comprar milhas Aeroplan pode ser bom negócio em promoções — vale emitir direto daqui</li>
+        </ul>
+      </div>
+      <div class="col">
+        <h3>Quando usar</h3>
+        <ul>
+          <li>Rota com Emirates na ida ou volta</li>
+          <li>Quando quiser achar voos da Lufthansa ou Swiss</li>
+          <li>Quando quiser incluir um stopover sem custo extra de milhas</li>
+          <li>Quando United não mostra o assento que você precisa</li>
+        </ul>
+      </div>
+    </div>
+    <div class="rodape">eujuntomilhas</div>
+    <div class="num">06</div>
+  </section>
+
+  <!-- ─── BRITISH + FLYING BLUE ─────────────────────── -->
+  <section class="slide-conteudo">
+    <div class="tag">Ferramentas 3 e 4</div>
+    <h2>British Airways &amp; Flying Blue</h2>
+    <div class="grid-2">
+      <div class="col">
+        <h3>British Airways Executive Club</h3>
+        <ul>
+          <li>Oneworld completo: American, Iberia, Cathay, Qatar</li>
+          <li>Busca clara com disponibilidade por cabine</li>
+          <li>Ótimo para confirmar se Qatar/Cathay tem assento</li>
+          <li>Atenção: estoques de Avios não são visíveis no Seats.aero</li>
+        </ul>
+      </div>
+      <div class="col">
+        <h3>Flying Blue (Air France/KLM)</h3>
+        <ul>
+          <li>SkyTeam: Air France, KLM, Delta, Korean Air</li>
+          <li>Promos mensais com até 50% de desconto em milhas</li>
+          <li>Delta também pode ser emitido com milhas LATAM</li>
+          <li>Ótimo para roteiros com conexão em Paris ou Amsterdam</li>
+        </ul>
+      </div>
+    </div>
+    <div class="rodape">eujuntomilhas</div>
+    <div class="num">07</div>
+  </section>
+
+  <!-- ─── SEÇÃO 2 ───────────────────────────────────── -->
+  <section class="slide-secao">
+    <div class="tag">Bloco 2</div>
+    <h1 style="font-size:1.5em; color: var(--verde-musgo);">Sites que ajudam<br>na otimização<br>da busca</h1>
+    <div class="rodape" style="color: rgba(79,111,82,0.5);">eujuntomilhas</div>
+    <div class="num">09</div>
+  </section>
+
+  <!-- ─── SEATS.AERO ────────────────────────────────── -->
+  <section class="slide-conteudo">
+    <div class="tag">Ferramenta de apoio</div>
+    <h2>Seats.aero</h2>
+    <div class="grid-2">
+      <div class="col">
+        <h3>O que faz</h3>
+        <ul>
+          <li>Agrega disponibilidade de vários programas ao mesmo tempo</li>
+          <li>Mostra em qual programa o assento está disponível</li>
+          <li>Filtra por cabine, data, rota e número de passageiros</li>
+          <li>Salva tempo: você não precisa abrir 5 sites diferentes</li>
+          <li>Cias como LATAM ficam de fora — nem tudo aparece aqui</li>
+        </ul>
+      </div>
+      <div class="col">
+        <h3>Como interpretar as cores</h3>
+        <ul>
+          <li><strong>Verde</strong> = voo direto disponível</li>
+          <li><strong>Azul</strong> = disponível com conexão</li>
+          <li><strong>Cinza</strong> = sem disponibilidade</li>
+          <li>Sempre confirme no site do programa antes de transferir</li>
+          <li>Estoques de Avios (British) não aparecem aqui</li>
+        </ul>
+      </div>
+    </div>
+    <div class="rodape">eujuntomilhas</div>
+    <div class="num">09</div>
+  </section>
+
+  <!-- ─── COMPARATIVO FERRAMENTAS ───────────────────── -->
+  <section class="slide-conteudo">
+    <div class="tag">Resumo das ferramentas</div>
+    <h2>Qual ferramenta usar em cada momento</h2>
+    <table style="margin-top:12px;">
+      <tr>
+        <th>Ferramenta</th>
+        <th>Tipo</th>
+        <th>Melhor uso</th>
+      </tr>
+      <tr>
+        <td><strong>Seats.aero</strong></td>
+        <td>Agregador</td>
+        <td>Ver disponibilidade em vários programas de uma vez</td>
+      </tr>
+      <tr>
+        <td><strong>United</strong></td>
+        <td>Programa</td>
+        <td>Confirmar Star Alliance + Azul em tarifa award</td>
+      </tr>
+      <tr>
+        <td><strong>Air Canada</strong></td>
+        <td>Programa</td>
+        <td>Emirates, Lufthansa, Swiss, Azul e stopover gratuito</td>
+      </tr>
+      <tr>
+        <td><strong>British</strong></td>
+        <td>Programa</td>
+        <td>Confirmar Oneworld (Qatar, Cathay, American)</td>
+      </tr>
+      <tr>
+        <td><strong>Flying Blue</strong></td>
+        <td>Programa</td>
+        <td>SkyTeam, promos mensais e voos Delta</td>
+      </tr>
+    </table>
+    <div class="rodape">eujuntomilhas</div>
+    <div class="num">10</div>
+  </section>
+
+  <!-- ─── SEÇÃO 3 ───────────────────────────────────── -->
+  <section class="slide-secao">
+    <div class="tag">Bloco 3</div>
+    <h1 style="font-size:1.4em; color: var(--verde-musgo);">Verificar disponibilidade<br>antes de transferir</h1>
+    <div class="rodape" style="color: rgba(79,111,82,0.5);">eujuntomilhas</div>
+    <div class="num">13</div>
+  </section>
+
+  <!-- ─── REGRA DE OURO ─────────────────────────────── -->
+  <section class="slide-destaque">
+    <div class="tag">Regra de ouro</div>
+    <h2>Nunca transfira sem confirmar</h2>
+    <ul style="margin-top:20px;">
+      <li>Transferências entre programas são <strong>irreversíveis</strong></li>
+      <li>O assento pode sumir entre a transferência e a tentativa de emissão</li>
+      <li>Confirmar = ver o assento no site do programa parceiro, não só no agregador</li>
+    </ul>
+    <div class="aviso" style="margin-top:24px;">
+      Seats.aero mostra disponibilidade em cache — pode ter atraso de minutos a horas. <strong>Sempre confirme no site oficial do programa antes de transferir.</strong>
+    </div>
+    <div class="rodape">eujuntomilhas</div>
+    <div class="num">14</div>
+  </section>
+
+  <!-- ─── FLUXO CORRETO ─────────────────────────────── -->
+  <section class="slide-conteudo">
+    <div class="tag">O método</div>
+    <h2>Fluxo de verificação antes de transferir</h2>
+    <ul class="steps" style="margin-top: 20px;">
+      <li>Use o Seats.aero para identificar em qual programa o assento está disponível</li>
+      <li>Acesse o site oficial do programa indicado</li>
+      <li>Faça a busca exata: mesma data, mesma cabine, mesmo número de passageiros</li>
+      <li>Veja o assento disponível na tela com o custo em milhas</li>
+      <li>Só então transfira os pontos</li>
+      <li>Emita imediatamente após a transferência ser processada</li>
+    </ul>
+    <div class="rodape">eujuntomilhas</div>
+    <div class="num">15</div>
+  </section>
+
+  <!-- ─── SEÇÃO 4 ───────────────────────────────────── -->
+  <section class="slide-secao">
+    <div class="tag">Bloco 4</div>
+    <h1 style="font-size:1.4em; color: var(--verde-musgo);">Comportamento<br>dinâmico<br>das tarifas</h1>
+    <div class="rodape" style="color: rgba(79,111,82,0.5);">eujuntomilhas</div>
+    <div class="num">16</div>
+  </section>
+
+  <!-- ─── TABELA FIXA VS DINÂMICA ───────────────────── -->
+  <section class="slide-conteudo">
+    <div class="tag">Conceito</div>
+    <h2>Tabela fixa x tarifa dinâmica</h2>
+    <div class="grid-2">
+      <div class="col">
+        <h3>Tabela fixa</h3>
+        <ul>
+          <li>Custo em milhas definido por zona geográfica</li>
+          <li>Independe da data ou demanda</li>
+          <li>United, Iberia, ANA, British — ainda usam tabela</li>
+          <li>Permite planejar com antecedência o custo</li>
+        </ul>
+      </div>
+      <div class="col">
+        <h3>Tarifa dinâmica</h3>
+        <ul>
+          <li>Custo varia conforme o preço da passagem paga</li>
+          <li>Sobe na alta temporada e desce em promoção</li>
+          <li>Programas: <strong>LATAM Pass, Smiles, Flying Blue, Azul</strong></li>
+          <li>Pode ser vantagem ou armadilha — depende do momento</li>
+        </ul>
+      </div>
+    </div>
+    <div class="rodape">eujuntomilhas</div>
+    <div class="num">17</div>
+  </section>
+
+  <!-- ─── COMO IDENTIFICAR ──────────────────────────── -->
+  <section class="slide-conteudo">
+    <div class="tag">Na prática</div>
+    <h2>Como identificar o tipo de tarifa</h2>
+    <ul style="margin-top:16px;">
+      <li>Busque a mesma rota em datas diferentes — se o custo em milhas variar, é dinâmica</li>
+      <li>Consulte a tabela oficial do programa (geralmente em "Award chart" no site)</li>
+      <li>Programas que extinguiram a tabela fixa geralmente anunciam no site</li>
+    </ul>
+    <hr>
+    <p style="font-family:'Caveat',cursive; font-size:0.65em; color:var(--terracota); margin-top:8px;">
+      Tabela fixa ainda existe — e é onde moram os melhores sweet spots.
+    </p>
+    <div class="rodape">eujuntomilhas</div>
+    <div class="num">18</div>
+  </section>
+
+  <!-- ─── SEÇÃO 5 ───────────────────────────────────── -->
+  <section class="slide-secao">
+    <div class="tag">Bloco 5</div>
+    <h1 style="font-size:1.4em; color: var(--verde-musgo);">Voos "fantasmas"<br>e erros<br>de sistema</h1>
+    <div class="rodape" style="color: rgba(79,111,82,0.5);">eujuntomilhas</div>
+    <div class="num">19</div>
+  </section>
+
+  <!-- ─── O QUE SÃO FANTASMAS ──────────────────────── -->
+  <section class="slide-conteudo">
+    <div class="tag">Conceito</div>
+    <h2>O que são voos "fantasmas"</h2>
+    <ul style="margin-top:16px;">
+      <li>Assentos award que aparecem na busca mas <strong>não existem de verdade</strong></li>
+      <li>Problema de sincronização entre o inventário da operadora e o sistema do parceiro</li>
+      <li>Você vê o assento, tenta emitir — e o sistema nega ou trava</li>
+      <li>Comum em conexões com parceiras fora da aliança principal</li>
+    </ul>
+    <div class="aviso">
+      Fantasma ≠ available. Sempre tente a emissão — só aí você confirma de verdade.
+    </div>
+    <div class="rodape">eujuntomilhas</div>
+    <div class="num">20</div>
+  </section>
+
+  <!-- ─── COMO EVITAR ───────────────────────────────── -->
+  <section class="slide-destaque">
+    <div class="tag">Estratégia</div>
+    <h2>Como evitar armadilhas de sistema</h2>
+    <ul style="margin-top:20px;">
+      <li>Se o assento aparece mas não confirma: tente em outro programa que opera a mesma rota</li>
+      <li>Evite depender de um único trecho difícil — tenha plano B de rota</li>
+      <li>Itinerários com 3+ conexões têm mais risco de trava — simplifique quando possível</li>
+      <li>Cheque disponibilidade em mais de um horário antes de montar o roteiro final</li>
+      <li>Use o telefone do programa quando o site trava — nem sempre é um "fantasma"</li>
+    </ul>
+    <div class="rodape">eujuntomilhas</div>
+    <div class="num">21</div>
+  </section>
+
+  <!-- ─── SEÇÃO 6 ───────────────────────────────────── -->
+  <section class="slide-pratica">
+    <div class="tag">Bloco 6</div>
+    <h1 style="font-size:1.5em; color: var(--branco);">Prática:<br>Buscas ao vivo<br>com diferentes ferramentas</h1>
+    <div class="rodape">eujuntomilhas</div>
+    <div class="num">22</div>
+  </section>
+
+  <!-- ─── ROTEIRO DA PRÁTICA ────────────────────────── -->
+  <section class="slide-pratica">
+    <div class="tag">Prática guiada</div>
+    <h2>O que vamos fazer agora</h2>
+    <ul class="steps" style="margin-top:20px;">
+      <li>Escolher uma rota real para buscar (Brasil → Europa ou Ásia)</li>
+      <li>Abrir o Seats.aero e identificar programas com disponibilidade</li>
+      <li>Confirmar o assento no site oficial do programa indicado</li>
+      <li>Repetir a busca em um segundo programa — resultado diferente?</li>
+      <li>Analisar: onde o assento está disponível e qual vale mais a pena</li>
+    </ul>
+    <div class="rodape">eujuntomilhas</div>
+    <div class="num">23</div>
+  </section>
+
+  <!-- ─── CHECKLIST DA BUSCA ────────────────────────── -->
+  <section class="slide-conteudo">
+    <div class="tag">Para usar toda vez</div>
+    <h2>Checklist da busca inteligente</h2>
+    <ul style="margin-top:16px;">
+      <li>Identifiquei quem opera a rota <span class="tc">✓</span></li>
+      <li>Sei quais programas têm parceria com essa cia <span class="tc">✓</span></li>
+      <li>Confirmei a disponibilidade no Seats.aero <span class="tc">✓</span></li>
+      <li>Verifiquei no site oficial do programa antes de transferir <span class="tc">✓</span></li>
+      <li>Tenho o plano B de rota caso o assento suma <span class="tc">✓</span></li>
+      <li>Só transfiro os pontos depois de tudo confirmado <span class="tc">✓</span></li>
+    </ul>
+    <div class="rodape">eujuntomilhas</div>
+    <div class="num">24</div>
+  </section>
+
+  <!-- ─── FECHAMENTO ───────────────────────────────── -->
+  <section class="slide-fechamento">
+    <div class="tag">Para fechar</div>
+    <blockquote style="border-left-color: var(--ambar); color: var(--branco); font-size: 0.65em; margin-top:24px;">
+      "A disponibilidade award não é igual em todos os lugares.<br>
+      Quem sabe onde olhar<br>
+      acha o assento que ninguém vê.<br><br>
+      <strong>Ferramenta certa. Momento certo. Emissão certa.</strong>"
+    </blockquote>
+    <div class="rodape">eujuntomilhas</div>
+    <div class="num">25</div>
+  </section>
+
+  <!-- ─── RESUMO ───────────────────────────────────── -->
+  <section class="slide-resumo">
+    <div class="tag">Resumo da Aula 2</div>
+    <h2>O que você leva hoje</h2>
+    <table style="margin-top:12px;">
+      <tr>
+        <th>Conceito</th>
+        <th>O que aprendemos</th>
+      </tr>
+      <tr><td>Ferramentas de busca</td><td>United, Air Canada, British e Flying Blue têm acesso diferente ao inventário award</td></tr>
+      <tr><td>Seats.aero</td><td>Agrega disponibilidade de vários programas — verde direto, azul conexão, cinza sem vaga</td></tr>
+      <tr><td>Verificação antes de transferir</td><td>Confirmar no site oficial é obrigatório — transferência é irreversível</td></tr>
+      <tr><td>Tabela fixa vs dinâmica</td><td>Dinâmica: LATAM Pass, Smiles, Flying Blue, Azul — sobe na alta temporada</td></tr>
+      <tr><td>Voos fantasmas</td><td>Assento que aparece mas não confirma — sempre tenha plano B de rota</td></tr>
+    </table>
+    <div class="rodape">eujuntomilhas</div>
+    <div class="num">26</div>
+  </section>
+
+  <!-- ─── ENCERRAMENTO ─────────────────────────────── -->
+  <section class="slide-capa">
+    <h1 style="font-size:1.6em; color:var(--branco); margin-top: 80px;">Nos vemos<br>na próxima<br>aula.</h1>
+    <p style="color:var(--ambar); font-family:'Caveat',cursive; font-size:0.65em; margin-top:56px;">
+      @eujuntomilhas
+    </p>
+    <div class="rodape">eujuntomilhas</div>
+  </section>
+
+</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@4.6.0/dist/reveal.js"></script>
+<script>
+  Reveal.initialize({
+    hash: true,
+    slideNumber: false,
+    controls: true,
+    progress: true,
+    center: false,
+    transition: 'fade',
+    transitionSpeed: 'fast',
+    width: 1280,
+    height: 720,
+    margin: 0,
+    minScale: 0.2,
+    maxScale: 2.0,
+  });
+</script>
+</body>
+</html>
