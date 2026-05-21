@@ -18,7 +18,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 60px 24px;
+      padding: 60px 24px 80px;
     }
 
     header {
@@ -52,33 +52,42 @@
       color: #7a9a7e;
     }
 
-    .aulas {
+    /* ── Layout principal ── */
+    .lista-aulas {
       width: 100%;
-      max-width: 640px;
+      max-width: 680px;
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: 12px;
     }
 
-    .aula {
+    /* ── Card de aula ── */
+    .aula-card {
       background: #fff;
-      border-radius: 16px;
-      padding: 28px 32px;
+      border-radius: 18px;
+      box-shadow: 0 2px 10px rgba(79,111,82,0.08);
+      overflow: hidden;
+      border: 2px solid transparent;
+      transition: border-color 0.2s;
+    }
+
+    .aula-card.ativa {
+      border-color: rgba(79,111,82,0.15);
+    }
+
+    /* ── Cabeçalho do card (clicável) ── */
+    .aula-header {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      text-decoration: none;
-      border: 2px solid transparent;
-      transition: border-color 0.2s, box-shadow 0.2s;
-      box-shadow: 0 2px 8px rgba(79,111,82,0.07);
+      padding: 24px 28px;
+      cursor: pointer;
+      user-select: none;
     }
 
-    .aula:hover {
-      border-color: #D97A3A;
-      box-shadow: 0 4px 20px rgba(217,122,58,0.15);
-    }
+    .aula-header:hover .aula-num { color: #D97A3A; }
 
-    .aula-info { flex: 1; }
+    .aula-meta { flex: 1; }
 
     .aula-num {
       font-size: 11px;
@@ -86,7 +95,8 @@
       letter-spacing: 0.1em;
       text-transform: uppercase;
       color: #D97A3A;
-      margin-bottom: 6px;
+      margin-bottom: 5px;
+      transition: color 0.2s;
     }
 
     .aula-titulo {
@@ -97,23 +107,20 @@
     }
 
     .aula-desc {
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       color: #9ab09e;
     }
 
-    .aula-arrow {
-      font-size: 1.2rem;
-      color: #D97A3A;
-      margin-left: 20px;
-      opacity: 0.7;
+    .aula-chevron {
+      font-size: 1rem;
+      color: #c8bfb3;
+      margin-left: 16px;
+      transition: transform 0.25s;
     }
 
-    .aula.em-breve {
-      opacity: 0.45;
-      pointer-events: none;
-      cursor: default;
-    }
+    .aula-card.aberta .aula-chevron { transform: rotate(180deg); }
 
+    /* ── Pill em breve ── */
     .pill-breve {
       display: inline-block;
       background: #e8e4de;
@@ -124,8 +131,156 @@
       text-transform: uppercase;
       padding: 3px 10px;
       border-radius: 100px;
-      margin-left: 10px;
+      margin-left: 8px;
       vertical-align: middle;
+    }
+
+    /* ── Em breve: não expande ── */
+    .aula-card.em-breve .aula-header { cursor: default; opacity: 0.45; }
+    .aula-card.em-breve .aula-chevron { display: none; }
+
+    /* ── Corpo expansível ── */
+    .aula-body {
+      display: none;
+      padding: 0 28px 24px;
+      border-top: 1px solid #f0ebe4;
+    }
+
+    .aula-card.aberta .aula-body { display: block; }
+
+    /* ── Grade de materiais ── */
+    .materiais-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    @media (max-width: 500px) {
+      .materiais-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ── Item de material ── */
+    .material-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: #F4F1EC;
+      border-radius: 12px;
+      padding: 14px 16px;
+      text-decoration: none;
+      border: 1.5px solid transparent;
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .material-item:hover {
+      border-color: #D97A3A;
+      background: #fff8f2;
+    }
+
+    .material-icon {
+      font-size: 1.3rem;
+      flex-shrink: 0;
+    }
+
+    .material-info {}
+
+    .material-tipo {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #D97A3A;
+      margin-bottom: 2px;
+    }
+
+    .material-nome {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: #4F6F52;
+      line-height: 1.3;
+    }
+
+    /* ── Item de gravação (destaque) ── */
+    .material-item.gravacao {
+      grid-column: 1 / -1;
+      background: #4F6F52;
+      border-color: transparent;
+    }
+
+    .material-item.gravacao:hover {
+      background: #3e5941;
+      border-color: transparent;
+    }
+
+    .material-item.gravacao .material-tipo { color: #E6A15A; }
+    .material-item.gravacao .material-nome { color: #fff; }
+
+    /* ── Item indisponível ── */
+    .material-item.indisponivel {
+      opacity: 0.4;
+      pointer-events: none;
+    }
+
+    /* ── Seção de apoio ── */
+    .secao-apoio {
+      width: 100%;
+      max-width: 680px;
+      margin-top: 40px;
+    }
+
+    .secao-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #9ab09e;
+      margin-bottom: 10px;
+    }
+
+    .apoio-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #fff;
+      border-radius: 14px;
+      padding: 20px 24px;
+      text-decoration: none;
+      border: 2px solid transparent;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      box-shadow: 0 2px 8px rgba(79,111,82,0.07);
+      margin-bottom: 10px;
+    }
+
+    .apoio-item:hover {
+      border-color: #D97A3A;
+      box-shadow: 0 4px 16px rgba(217,122,58,0.12);
+    }
+
+    .apoio-info {}
+    .apoio-num {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #D97A3A;
+      margin-bottom: 4px;
+    }
+    .apoio-titulo {
+      font-family: 'Gabriela', serif;
+      font-size: 1rem;
+      color: #4F6F52;
+      margin-bottom: 2px;
+    }
+    .apoio-desc {
+      font-size: 0.78rem;
+      color: #9ab09e;
+    }
+    .apoio-arrow {
+      font-size: 1.1rem;
+      color: #D97A3A;
+      margin-left: 16px;
+      opacity: 0.7;
     }
 
     footer {
@@ -144,76 +299,133 @@
     <p>Bruna Araújo · @eujuntomilhas</p>
   </header>
 
-  <div class="aulas">
+  <div class="lista-aulas">
 
-    <a class="aula" href="slides/aula-1-slides.html">
-      <div class="aula-info">
-        <div class="aula-num">Aula 1</div>
-        <div class="aula-titulo">Fundamentos que destravam a cabeça</div>
-        <div class="aula-desc">Lógica do mundo award · alianças · sweet spots · estratégia</div>
+    <!-- ── AULA 1 ── -->
+    <div class="aula-card ativa aberta" id="aula-1">
+      <div class="aula-header" onclick="toggleAula('aula-1')">
+        <div class="aula-meta">
+          <div class="aula-num">Aula 1</div>
+          <div class="aula-titulo">Fundamentos que destravam a cabeça</div>
+          <div class="aula-desc">Lógica do mundo award · alianças · sweet spots · estratégia</div>
+        </div>
+        <div class="aula-chevron">▾</div>
       </div>
-      <div class="aula-arrow">→</div>
-    </a>
-
-    <a class="aula" href="slides/aula-2-slides.html">
-      <div class="aula-info">
-        <div class="aula-num">Aula 2</div>
-        <div class="aula-titulo">Técnicas Avançadas de Busca e Comparação</div>
-        <div class="aula-desc">Ferramentas internacionais · Seats.aero · voos fantasmas</div>
+      <div class="aula-body">
+        <div class="materiais-grid">
+          <a class="material-item gravacao" href="https://youtu.be/NhnE4zk2Wnw" target="_blank">
+            <span class="material-icon">▶</span>
+            <div class="material-info">
+              <div class="material-tipo">Gravação</div>
+              <div class="material-nome">Assistir no YouTube</div>
+            </div>
+          </a>
+          <a class="material-item" href="slides/aula-1-slides.html">
+            <span class="material-icon">📊</span>
+            <div class="material-info">
+              <div class="material-tipo">Slides</div>
+              <div class="material-nome">Apresentação da aula</div>
+            </div>
+          </a>
+          <a class="material-item" href="resumo-aula-1.html">
+            <span class="material-icon">📋</span>
+            <div class="material-info">
+              <div class="material-tipo">Resumo</div>
+              <div class="material-nome">Conceitos, estruturas e ações</div>
+            </div>
+          </a>
+        </div>
       </div>
-      <div class="aula-arrow">→</div>
-    </a>
-
-    <div class="aula em-breve">
-      <div class="aula-info">
-        <div class="aula-num">Aula 3 <span class="pill-breve">Em breve</span></div>
-        <div class="aula-titulo">Como achar e emitir tarifas award</div>
-        <div class="aula-desc">Busca · disponibilidade · emissão passo a passo</div>
-      </div>
-      <div class="aula-arrow">→</div>
     </div>
 
-    <div class="aula em-breve">
-      <div class="aula-info">
-        <div class="aula-num">Aula 4 <span class="pill-breve">Em breve</span></div>
-        <div class="aula-titulo">Montagem do roteiro award</div>
-        <div class="aula-desc">Open Jaw · stopover · cálculo final · script de emissão</div>
+    <!-- ── AULA 2 ── -->
+    <div class="aula-card ativa aberta" id="aula-2">
+      <div class="aula-header" onclick="toggleAula('aula-2')">
+        <div class="aula-meta">
+          <div class="aula-num">Aula 2</div>
+          <div class="aula-titulo">Técnicas Avançadas de Busca e Comparação</div>
+          <div class="aula-desc">Ferramentas internacionais · Seats.aero · voos fantasmas</div>
+        </div>
+        <div class="aula-chevron">▾</div>
       </div>
-      <div class="aula-arrow">→</div>
+      <div class="aula-body">
+        <div class="materiais-grid">
+          <a class="material-item gravacao" href="https://youtu.be/ighj5AtuOIMn" target="_blank">
+            <span class="material-icon">▶</span>
+            <div class="material-info">
+              <div class="material-tipo">Gravação</div>
+              <div class="material-nome">Assistir no YouTube</div>
+            </div>
+          </a>
+          <a class="material-item" href="slides/aula-2-slides.html">
+            <span class="material-icon">📊</span>
+            <div class="material-info">
+              <div class="material-tipo">Slides</div>
+              <div class="material-nome">Apresentação da aula</div>
+            </div>
+          </a>
+          <a class="material-item" href="resumo-aula-2.html">
+            <span class="material-icon">📋</span>
+            <div class="material-info">
+              <div class="material-tipo">Resumo</div>
+              <div class="material-nome">Conceitos, ferramentas e ações</div>
+            </div>
+          </a>
+          <a class="material-item" href="guia-cadastro-programas-fidelidade.html">
+            <span class="material-icon">📌</span>
+            <div class="material-info">
+              <div class="material-tipo">Material de apoio</div>
+              <div class="material-nome">Guia de cadastro em programas</div>
+            </div>
+          </a>
+        </div>
+      </div>
     </div>
 
-    <div class="aula em-breve">
-      <div class="aula-info">
-        <div class="aula-num">Aula 5 <span class="pill-breve">Em breve</span></div>
-        <div class="aula-titulo">Oficina de emissões ao vivo</div>
-        <div class="aula-desc">Trechos reais · análise ao vivo · autonomia total</div>
+    <!-- ── AULA 3 ── -->
+    <div class="aula-card em-breve" id="aula-3">
+      <div class="aula-header">
+        <div class="aula-meta">
+          <div class="aula-num">Aula 3 <span class="pill-breve">Em breve</span></div>
+          <div class="aula-titulo">Como achar e emitir tarifas award</div>
+          <div class="aula-desc">Busca · disponibilidade · emissão passo a passo</div>
+        </div>
       </div>
-      <div class="aula-arrow">→</div>
     </div>
 
-  </div>
+    <!-- ── AULA 4 ── -->
+    <div class="aula-card em-breve" id="aula-4">
+      <div class="aula-header">
+        <div class="aula-meta">
+          <div class="aula-num">Aula 4 <span class="pill-breve">Em breve</span></div>
+          <div class="aula-titulo">Montagem do roteiro award</div>
+          <div class="aula-desc">Open Jaw · stopover · cálculo final · script de emissão</div>
+        </div>
+      </div>
+    </div>
 
-  <div class="aulas" style="margin-top: 40px;">
-    <div style="font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #9ab09e; margin-bottom: 4px;">Material de Apoio</div>
-    <a class="aula" href="resumo-aula-2.html">
-      <div class="aula-info">
-        <div class="aula-num">Resumo</div>
-        <div class="aula-titulo">Resumo da Aula 2</div>
-        <div class="aula-desc">Conceitos, ferramentas, casos práticos e itens de ação</div>
+    <!-- ── AULA 5 ── -->
+    <div class="aula-card em-breve" id="aula-5">
+      <div class="aula-header">
+        <div class="aula-meta">
+          <div class="aula-num">Aula 5 <span class="pill-breve">Em breve</span></div>
+          <div class="aula-titulo">Oficina de emissões ao vivo</div>
+          <div class="aula-desc">Trechos reais · análise ao vivo · autonomia total</div>
+        </div>
       </div>
-      <div class="aula-arrow">→</div>
-    </a>
-    <a class="aula" href="guia-cadastro-programas-fidelidade.html">
-      <div class="aula-info">
-        <div class="aula-num">Guia</div>
-        <div class="aula-titulo">Cadastro nos Programas de Fidelidade</div>
-        <div class="aula-desc">Links diretos para cadastro em 17 programas nacionais e internacionais</div>
-      </div>
-      <div class="aula-arrow">→</div>
-    </a>
+    </div>
+
   </div>
 
   <footer>eujuntomilhas · CEP Mentoria</footer>
+
+  <script>
+    function toggleAula(id) {
+      const card = document.getElementById(id);
+      if (card.classList.contains('em-breve')) return;
+      card.classList.toggle('aberta');
+    }
+  </script>
 
 </body>
 </html>
