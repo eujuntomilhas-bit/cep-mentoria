@@ -257,6 +257,114 @@
 
     .btn-limpar:hover { border-color: #D97A3A; color: #D97A3A; }
 
+    /* ── Resumo final ── */
+    .resumo-final {
+      display: none;
+      background: #fff;
+      border-radius: 18px;
+      box-shadow: 0 2px 10px rgba(79,111,82,0.08);
+      border: 2px solid rgba(79,111,82,0.25);
+      overflow: hidden;
+    }
+
+    .resumo-final.visivel { display: block; }
+
+    .resumo-header {
+      background: #D97A3A;
+      padding: 20px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .resumo-header h2 {
+      font-family: 'Gabriela', serif;
+      font-size: 1.15rem;
+      color: #fff;
+      font-weight: 400;
+    }
+
+    .resumo-header p {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.75);
+      margin-top: 4px;
+    }
+
+    .btn-imprimir {
+      background: rgba(255,255,255,0.2);
+      border: 1.5px solid rgba(255,255,255,0.5);
+      border-radius: 100px;
+      padding: 8px 20px;
+      font-family: 'Roboto', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: #fff;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background 0.2s;
+      flex-shrink: 0;
+    }
+
+    .btn-imprimir:hover { background: rgba(255,255,255,0.32); }
+
+    .resumo-body {
+      padding: 24px 28px 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .resumo-secao { display: flex; flex-direction: column; gap: 10px; }
+
+    .resumo-secao-titulo {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #D97A3A;
+      padding-bottom: 6px;
+      border-bottom: 1.5px solid #f0ebe4;
+    }
+
+    .resumo-linha {
+      display: grid;
+      grid-template-columns: 180px 1fr;
+      gap: 12px;
+      align-items: baseline;
+    }
+
+    .resumo-pergunta {
+      font-size: 0.76rem;
+      font-weight: 600;
+      color: #9ab09e;
+    }
+
+    .resumo-resposta {
+      font-size: 0.82rem;
+      color: #4F6F52;
+      line-height: 1.5;
+      white-space: pre-wrap;
+    }
+
+    .resumo-resposta.vazia {
+      color: #c8bfb3;
+      font-style: italic;
+    }
+
+    @media (max-width: 500px) {
+      .resumo-linha { grid-template-columns: 1fr; gap: 3px; }
+    }
+
+    /* ── Impressão ── */
+    @media print {
+      body { padding: 20px; background: #fff; }
+      .btn-inicio, .btn-imprimir, .btn-limpar,
+      .bloco, .progresso-wrap, footer { display: none !important; }
+      .resumo-final { display: block !important; border: none; box-shadow: none; }
+      .resumo-header { background: #4F6F52; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    }
+
     footer {
       margin-top: 48px;
       font-size: 0.78rem;
@@ -522,12 +630,55 @@
   <!-- Botão limpar -->
   <button class="btn-limpar" onclick="limpar()">Limpar tudo e recomeçar</button>
 
+  <!-- ── RESUMO FINAL ── -->
+  <div class="resumo-final" id="resumo-final">
+    <div class="resumo-header">
+      <div>
+        <h2>Seu Briefing de Voo</h2>
+        <p>Use isso como guia durante a busca — mantenha aberto ou imprima.</p>
+      </div>
+      <button class="btn-imprimir" onclick="window.print()">🖨 Imprimir</button>
+    </div>
+    <div class="resumo-body" id="resumo-body">
+      <!-- preenchido via JS -->
+    </div>
+  </div>
+
 </div>
 
 <footer>eujuntomilhas · CEP Mentoria</footer>
 
 <script>
   const TOTAL = 14;
+
+  // mapa: pergunta → label curto para o resumo
+  const LABELS = [
+    'Para onde',
+    'Aeroporto de origem',
+    'Aeroporto de chegada alternativo',
+    'Quando',
+    'Flexibilidade de datas',
+    'Nº de passageiros',
+    'Cabine',
+    'Total de pontos',
+    'Programas e saldos',
+    'Pontos transferíveis',
+    'Expiração de pontos',
+    'Prazo de viagem',
+    'Objetivo da viagem',
+    'Limite de taxas',
+    'Hipóteses de rota',
+    'Programa(s) de busca',
+  ];
+
+  const SECOES = [
+    { titulo: 'Destino', indices: [0, 1, 2] },
+    { titulo: 'Datas', indices: [3, 4] },
+    { titulo: 'Passageiros & Cabine', indices: [5, 6] },
+    { titulo: 'Meus Pontos', indices: [7, 8, 9, 10] },
+    { titulo: 'Objetivo & Limite de Taxas', indices: [11, 12, 13] },
+    { titulo: 'Hipóteses de Rota & Estratégia', indices: [14, 15] },
+  ];
 
   function toggle(el) {
     el.classList.toggle('marcado');
@@ -538,12 +689,60 @@
     const marcados = document.querySelectorAll('.item.marcado').length;
     document.getElementById('contador').textContent = marcados + ' / ' + TOTAL;
     document.getElementById('barra').style.width = (marcados / TOTAL * 100) + '%';
+
+    if (marcados === TOTAL) {
+      gerarResumo();
+      document.getElementById('resumo-final').classList.add('visivel');
+      setTimeout(() => {
+        document.getElementById('resumo-final').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 200);
+    } else {
+      document.getElementById('resumo-final').classList.remove('visivel');
+    }
+  }
+
+  function gerarResumo() {
+    const campos = Array.from(document.querySelectorAll('.campo-resposta'));
+    const perguntas = Array.from(document.querySelectorAll('.item-pergunta'));
+    const body = document.getElementById('resumo-body');
+    body.innerHTML = '';
+
+    SECOES.forEach(secao => {
+      const div = document.createElement('div');
+      div.className = 'resumo-secao';
+
+      const titulo = document.createElement('div');
+      titulo.className = 'resumo-secao-titulo';
+      titulo.textContent = secao.titulo;
+      div.appendChild(titulo);
+
+      secao.indices.forEach(i => {
+        const linha = document.createElement('div');
+        linha.className = 'resumo-linha';
+
+        const perg = document.createElement('div');
+        perg.className = 'resumo-pergunta';
+        perg.textContent = perguntas[i] ? perguntas[i].textContent : LABELS[i];
+
+        const resp = document.createElement('div');
+        const val = campos[i] ? campos[i].value.trim() : '';
+        resp.className = 'resumo-resposta' + (val ? '' : ' vazia');
+        resp.textContent = val || 'Não preenchido';
+
+        linha.appendChild(perg);
+        linha.appendChild(resp);
+        div.appendChild(linha);
+      });
+
+      body.appendChild(div);
+    });
   }
 
   function limpar() {
     if (!confirm('Limpar todas as marcações e respostas?')) return;
     document.querySelectorAll('.item').forEach(el => el.classList.remove('marcado'));
     document.querySelectorAll('.campo-resposta').forEach(el => el.value = '');
+    document.getElementById('resumo-final').classList.remove('visivel');
     atualizarProgresso();
   }
 </script>
