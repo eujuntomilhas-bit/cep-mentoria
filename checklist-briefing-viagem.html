@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checklist — Briefing de Viagem | CEP</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gabriela&family=Roboto:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: #F4F1EC;
+      color: #4F6F52;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 60px 24px 80px;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 48px;
+      max-width: 680px;
+      width: 100%;
+    }
+
+    .tag {
+      display: inline-block;
+      background: #D97A3A;
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 6px 18px;
+      border-radius: 100px;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      font-family: 'Gabriela', serif;
+      font-size: 2rem;
+      color: #4F6F52;
+      line-height: 1.2;
+      margin-bottom: 10px;
+    }
+
+    header p {
+      font-size: 0.88rem;
+      color: #7a9a7e;
+      line-height: 1.5;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 680px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .bloco {
+      background: #fff;
+      border-radius: 18px;
+      box-shadow: 0 2px 10px rgba(79,111,82,0.08);
+      overflow: hidden;
+      border: 2px solid rgba(79,111,82,0.1);
+    }
+
+    .bloco-header {
+      background: #4F6F52;
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .bloco-header h2 {
+      font-family: 'Gabriela', serif;
+      font-size: 1rem;
+      color: #fff;
+      font-weight: 400;
+    }
+
+    .bloco-header .bloco-num {
+      background: rgba(255,255,255,0.18);
+      color: #E6A15A;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 100px;
+      white-space: nowrap;
+    }
+
+    .bloco-body {
+      padding: 20px 24px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 12px 14px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.15s;
+      border: 1.5px solid transparent;
+      user-select: none;
+    }
+
+    .item:hover {
+      background: #f8f5f0;
+      border-color: rgba(79,111,82,0.12);
+    }
+
+    .item.marcado {
+      background: rgba(79,111,82,0.06);
+      border-color: rgba(79,111,82,0.2);
+    }
+
+    .item-checkbox {
+      width: 22px;
+      height: 22px;
+      border: 2px solid #c8bfb3;
+      border-radius: 6px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 1px;
+      transition: all 0.15s;
+      background: #fff;
+    }
+
+    .item.marcado .item-checkbox {
+      background: #4F6F52;
+      border-color: #4F6F52;
+    }
+
+    .item.marcado .item-checkbox::after {
+      content: "✓";
+      color: #fff;
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    .item-texto {
+      flex: 1;
+    }
+
+    .item-pergunta {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: #4F6F52;
+      margin-bottom: 4px;
+      transition: color 0.15s;
+    }
+
+    .item.marcado .item-pergunta {
+      color: #7a9a7e;
+      text-decoration: line-through;
+      text-decoration-color: rgba(79,111,82,0.4);
+    }
+
+    .item-dica {
+      font-size: 0.76rem;
+      color: #9ab09e;
+      line-height: 1.4;
+    }
+
+    .item.marcado .item-dica { color: #b5c9b8; }
+
+    .campo-resposta {
+      margin-top: 8px;
+      width: 100%;
+      border: 1.5px solid #e8e4de;
+      border-radius: 8px;
+      padding: 9px 12px;
+      font-family: 'Roboto', sans-serif;
+      font-size: 0.82rem;
+      color: #4F6F52;
+      background: #faf9f6;
+      resize: none;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .campo-resposta:focus { border-color: #4F6F52; background: #fff; }
+    .campo-resposta::placeholder { color: #c8bfb3; }
+
+    .progresso-wrap {
+      background: #fff;
+      border-radius: 18px;
+      padding: 20px 24px;
+      box-shadow: 0 2px 10px rgba(79,111,82,0.08);
+      border: 2px solid rgba(79,111,82,0.1);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .progresso-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .progresso-label {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: #4F6F52;
+    }
+
+    .progresso-num {
+      font-family: 'Gabriela', serif;
+      font-size: 1.1rem;
+      color: #D97A3A;
+    }
+
+    .progresso-barra {
+      height: 8px;
+      background: #e8e4de;
+      border-radius: 100px;
+      overflow: hidden;
+    }
+
+    .progresso-fill {
+      height: 100%;
+      background: #4F6F52;
+      border-radius: 100px;
+      transition: width 0.35s ease;
+    }
+
+    .btn-limpar {
+      align-self: flex-end;
+      background: none;
+      border: 1.5px solid #e8e4de;
+      border-radius: 100px;
+      padding: 7px 18px;
+      font-family: 'Roboto', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #9ab09e;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-limpar:hover { border-color: #D97A3A; color: #D97A3A; }
+
+    /* ── Resumo final ── */
+    .resumo-final {
+      display: none;
+      background: #fff;
+      border-radius: 18px;
+      box-shadow: 0 2px 10px rgba(79,111,82,0.08);
+      border: 2px solid rgba(79,111,82,0.25);
+      overflow: hidden;
+    }
+
+    .resumo-final.visivel { display: block; }
+
+    .resumo-header {
+      background: #D97A3A;
+      padding: 20px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .resumo-header h2 {
+      font-family: 'Gabriela', serif;
+      font-size: 1.15rem;
+      color: #fff;
+      font-weight: 400;
+    }
+
+    .resumo-header p {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.75);
+      margin-top: 4px;
+    }
+
+    .btn-imprimir {
+      background: rgba(255,255,255,0.2);
+      border: 1.5px solid rgba(255,255,255,0.5);
+      border-radius: 100px;
+      padding: 8px 20px;
+      font-family: 'Roboto', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: #fff;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background 0.2s;
+      flex-shrink: 0;
+    }
+
+    .btn-imprimir:hover { background: rgba(255,255,255,0.32); }
+
+    .resumo-body {
+      padding: 24px 28px 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .resumo-secao { display: flex; flex-direction: column; gap: 10px; }
+
+    .resumo-secao-titulo {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #D97A3A;
+      padding-bottom: 6px;
+      border-bottom: 1.5px solid #f0ebe4;
+    }
+
+    .resumo-linha {
+      display: grid;
+      grid-template-columns: 180px 1fr;
+      gap: 12px;
+      align-items: baseline;
+    }
+
+    .resumo-pergunta {
+      font-size: 0.76rem;
+      font-weight: 600;
+      color: #9ab09e;
+    }
+
+    .resumo-resposta {
+      font-size: 0.82rem;
+      color: #4F6F52;
+      line-height: 1.5;
+      white-space: pre-wrap;
+    }
+
+    .resumo-resposta.vazia {
+      color: #c8bfb3;
+      font-style: italic;
+    }
+
+    @media (max-width: 500px) {
+      .resumo-linha { grid-template-columns: 1fr; gap: 3px; }
+    }
+
+    /* ── Impressão ── */
+    @media print {
+      body { padding: 20px; background: #fff; }
+      .btn-inicio, .btn-imprimir, .btn-limpar,
+      .bloco, .progresso-wrap, footer { display: none !important; }
+      .resumo-final { display: block !important; border: none; box-shadow: none; }
+      .resumo-header { background: #4F6F52; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    }
+
+    footer {
+      margin-top: 48px;
+      font-size: 0.78rem;
+      color: #b5c9b8;
+      text-align: center;
+    }
+
+    /* Botão voltar */
+    .btn-inicio {
+      position: fixed;
+      bottom: 28px;
+      left: 28px;
+      z-index: 9999;
+      background: rgba(79,111,82,0.92);
+      color: #fff;
+      font-family: 'Roboto', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-decoration: none;
+      padding: 9px 18px;
+      border-radius: 100px;
+      backdrop-filter: blur(6px);
+      transition: background 0.2s;
+    }
+    .btn-inicio:hover { background: rgba(79,111,82,1); }
+  </style>
+</head>
+<body>
+
+<a href="index.html" class="btn-inicio">← Início</a>
+
+<header>
+  <div class="tag">CEP · Material de Apoio — Aula 3</div>
+  <h1>Briefing de Viagem</h1>
+  <p>Responda a cada pergunta antes de abrir qualquer ferramenta de busca.<br>
+  A boa emissão começa quando você sabe exatamente o que está procurando.</p>
+</header>
+
+<div class="container">
+
+  <!-- Progresso -->
+  <div class="progresso-wrap">
+    <div class="progresso-top">
+      <span class="progresso-label">Progresso do briefing</span>
+      <span class="progresso-num" id="contador">0 / 14</span>
+    </div>
+    <div class="progresso-barra">
+      <div class="progresso-fill" id="barra" style="width:0%"></div>
+    </div>
+  </div>
+
+  <!-- Bloco 1: Destino -->
+  <div class="bloco">
+    <div class="bloco-header">
+      <span class="bloco-num">Parte 1</span>
+      <h2>Destino</h2>
+    </div>
+    <div class="bloco-body">
+
+      <div class="item" onclick="toggle(this)">
+        <div class="item-checkbox"></div>
+        <div class="item-texto">
+          <div class="item-pergunta">Para onde eu quero ir?</div>
+          <div class="item-dica">Cidade específica, país ou região? Quanto mais claro, melhor.</div>
+          <textarea class="campo-resposta" rows="2" placeholder="Destino..." onclick="event.stopPropagation()"></textarea>
+        </div>
+      </div>
+
+      <div class="item" onclick="toggle(this)">
+        <div class="item-checkbox"></div>
+        <div class="item-texto">
+          <div class="item-pergunta">De quais aeroportos posso sair?</div>
+          <div class="item-dica">GRU, GIG, BSB, VCP — flexibilidade de origem abre mais rotas.</div>
+          <textarea class="campo-resposta" rows="2" placeholder="Aeroportos possíveis..." onclick="event.stopPropagation()"></textarea>
+        </div>
+      </div>
+
+      <div class="item" onclick="toggle(this)">
+        <div class="item-checkbox"></div>
+        <div class="item-texto">
+          <div class="item-pergunta">Posso chegar por outro aeroporto no destino?</div>
+          <div class="item-dica">Chegar em CDG e ir de trem a Amsterdã, por exemplo — isso abre rotas.</div>
+          <textarea class="campo-resposta" rows="2" placeholder="Aeroportos alternativos de chegada..." onclick="event.stopPropagation()"></textarea>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Bloco 2: Datas -->
+  <div class="bloco">
+    <div class="bloco-header">
+      <span class="bloco-num">Parte 2</span>
+      <h2>Datas</h2>
+    </div>
+    <div class="bloco-body">
+
+      <div class="item" onclick="toggle(this)">
+        <div class="item-checkbox"></div>
+        <div class="item-texto">
+          <div class="item-pergunta">Quando posso ir?</div>
+          <div class="item-dica">Datas fixas ou tenho janela? Quantos dias de viagem?</div>
+          <textarea class="campo-resposta" rows="2" placeholder="Período desejado..." onclick="event.stopPropagation()"></textarea>
+        </div>
+      </div>
+
+      <div class="item" onclick="toggle(this)">
+        <div class="item-checkbox"></div>
+        <div class="item-texto">
+          <div class="item-pergunta">Qual é minha flexibilidade de datas?</div>
+          <div class="item-dica">± 3 dias pode mudar completamente a disponibilidade award.</div>
+          <textarea class="campo-resposta" rows="2" placeholder="Minha janela de flexibilidade..." onclick="event.stopPropagation()"></textarea>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Bloco 3: Passageiros e cabine -->
+  <div class="bloco">
+    <div class="bloco-header">
+      <span class="bloco-num">Parte 3</span>
+      <h2>Passageiros &amp; Cabine</h2>
+    </div>
+    <div class="bloco-body">
+
+      <div class="item" onclick="toggle(this)">
+        <div class="item-checkbox"></div>
+        <div class="item-texto">
+          <div class="item-pergunta">Quantas pessoas vão viajar?</div>
+          <div class="item-dica">Acima de 2 pax, a disponibilidade cai muito. Planeje se for grupo.</div>
+          <textarea class="campo-resposta" rows="2" placeholder="Número de passageiros..." onclick="event.stopPropagation()"></textarea>
+        </div>
+      </div>
+
+      <div class="item" onclick="toggle(this)">
+        <div class="item-checkbox"></div>
+        <div class="item-texto">
+          <div class="item-pergunta">Qual cabine eu quero?</div>
+          <div class="item-dica">Economy, Premium Economy, Business ou First? Defina antes — não busque tudo ao mesmo tempo.</div>
+          <textarea class="campo-resposta" rows="2" placeholder="Cabine desejada..." onclick="event.stopPropagation()"></textarea>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Bloco 4: Pontos -->
+  <div class="bloco">
+    <div class="bloco-header">
+      <span class="bloco-num">Parte 4</span>
+      <h2>Meus Pontos</h2>
+    </div>
+    <div class="bloco-body">
+
+      <div class="item" onclick="toggle(this)">
+        <div class="item-checkbox"></div>
+        <div class="item-texto">
+          <div class="item-pergunta">Quantos pontos tenho?</div>
+          <div class="item-dica">Some tudo: saldo em programas, milhas no cartão. Verifique expiração.</div>
+          <textarea class="campo-resposta" rows="2" placeholder="Saldo total aproximado..." onclick="event.stopPropagation()"></textarea>
+        </div>
+      </div>
+
+      <div class="item" onclick="toggle(this)">
+        <div class="item-checkbox"></div>
+        <div class="item-texto">
+          <div class="item-pergunta">Em quais programas estão meus pontos?</div>
+          <div class="item-dica">Smiles, TudoAzul, LATAM Pass, TAP Miles&amp;Go, Flying Blue… Cada um emite para parceiros diferentes.</div>
+          <textarea class="campo-resposta" rows="2" placeholder="Lista de programas e saldos..." onclick="event.stopPropagation()"></textarea>
+        </div>
+      </div>
+
+      <div class="item" onclick="toggle(this)">
+        <div class="item-checkbox"></div>
+        <div class="item-texto">
+          <div class="item-pergunta">Tenho pontos transferíveis?</div>
+          <div class="item-dica">Cartões como Amex, Livelo, C6 permitem transferir para múltiplos programas. Só transfira com disponibilidade confirmada.</div>
+          <textarea class="campo-resposta" rows="2" placeholder="Pontos transferíveis e parceiros..." onclick="event.stopPropagation()"></textarea>
+        </div>
+      </div>
+
+      <div class="item" onclick="toggle(this)">
+        <div class="item-checkbox"></div>
+        <div class="item-texto">
+          <div class="item-pergunta">Tenho prazo de expiração de pontos?</div>
+          <div class="item-dica">Pontos que expiram têm prioridade de uso. Verifique o vencimento de cada saldo.</div>
+          <textarea class="campo-resposta" rows="2" placeholder="Datas de expiração..." onclick="event.stopPropagation()"></textarea>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Bloco 5: Objetivo e limite -->
+  <div class="bloco">
+    <div class="bloco-header">
+      <span class="bloco-num">Parte 5</span>
+      <h2>Objetivo &amp; Limite de Taxas</h2>
+    </div>
+    <div class="bloco-body">
+
+      <div class="item" onclick="toggle(this)">
+        <div class="item-checkbox"></div>
+        <div class="item-texto">
+          <div class="item-pergunta">Tenho prazo de viagem ou posso esperar?</div>
+          <div class="item-dica">Sem prazo: você pode esperar disponibilidade ideal. Com prazo curto: aceite o que há ou reveja cabine.</div>
+          <textarea class="campo-resposta" rows="2" placeholder="Situação de prazo..." onclick="event.stopPropagation()"></textarea>
+        </div>
+      </div>
+
+      <div class="item" onclick="toggle(this)">
+        <div class="item-checkbox"></div>
+        <div class="item-texto">
+          <div class="item-pergunta">Qual é o objetivo da viagem?</div>
+          <div class="item-dica">Experiência de cabine? Chegar ao destino? Maximizar pontos? Viajar em família? O objetivo define o critério de decisão.</div>
+          <textarea class="campo-resposta" rows="2" placeholder="O que mais importa nessa viagem..." onclick="event.stopPropagation()"></textarea>
+        </div>
+      </div>
+
+      <div class="item" onclick="toggle(this)">
+        <div class="item-checkbox"></div>
+        <div class="item-texto">
+          <div class="item-pergunta">Qual é meu limite de taxas em dinheiro?</div>
+          <div class="item-dica">Todo award tem taxas. Podem variar de R$ 50 a R$ 4.000+. Defina seu teto antes de buscar — sem isso qualquer valor parece razoável.</div>
+          <textarea class="campo-resposta" rows="2" placeholder="Teto de taxas aceito..." onclick="event.stopPropagation()"></textarea>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Bloco 6: Estratégia -->
+  <div class="bloco">
+    <div class="bloco-header">
+      <span class="bloco-num">Parte 6</span>
+      <h2>Hipóteses de Rota &amp; Estratégia</h2>
+    </div>
+    <div class="bloco-body">
+
+      <div class="item" onclick="toggle(this)">
+        <div class="item-checkbox"></div>
+        <div class="item-texto">
+          <div class="item-pergunta">Quais hipóteses de rota tenho?</div>
+          <div class="item-dica">Rota direta, conexão via hub, open jaw, rota alternativa por aeroporto próximo.</div>
+          <textarea class="campo-resposta" rows="3" placeholder="Hipótese 1: ...\nHipótese 2: ...\nHipótese 3: ..." onclick="event.stopPropagation()"></textarea>
+        </div>
+      </div>
+
+      <div class="item" onclick="toggle(this)">
+        <div class="item-checkbox"></div>
+        <div class="item-texto">
+          <div class="item-pergunta">Por qual programa começo a busca?</div>
+          <div class="item-dica">Comece pelos programas onde tem pontos. Mas busque também onde não tem — para ter referência de preço e avaliar se vale comprar pontos com bônus.</div>
+          <textarea class="campo-resposta" rows="2" placeholder="Programa principal + programas de comparação..." onclick="event.stopPropagation()"></textarea>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Botão limpar -->
+  <button class="btn-limpar" onclick="limpar()">Limpar tudo e recomeçar</button>
+
+  <!-- ── RESUMO FINAL ── -->
+  <div class="resumo-final" id="resumo-final">
+    <div class="resumo-header">
+      <div>
+        <h2>Seu Briefing de Voo</h2>
+        <p>Use isso como guia durante a busca — mantenha aberto ou imprima.</p>
+      </div>
+      <button class="btn-imprimir" onclick="window.print()">🖨 Imprimir</button>
+    </div>
+    <div class="resumo-body" id="resumo-body">
+      <!-- preenchido via JS -->
+    </div>
+  </div>
+
+</div>
+
+<footer>eujuntomilhas · CEP Mentoria</footer>
+
+<script>
+  const TOTAL = 14;
+
+  // mapa: pergunta → label curto para o resumo
+  const LABELS = [
+    'Para onde',
+    'Aeroporto de origem',
+    'Aeroporto de chegada alternativo',
+    'Quando',
+    'Flexibilidade de datas',
+    'Nº de passageiros',
+    'Cabine',
+    'Total de pontos',
+    'Programas e saldos',
+    'Pontos transferíveis',
+    'Expiração de pontos',
+    'Prazo de viagem',
+    'Objetivo da viagem',
+    'Limite de taxas',
+    'Hipóteses de rota',
+    'Programa(s) de busca',
+  ];
+
+  const SECOES = [
+    { titulo: 'Destino', indices: [0, 1, 2] },
+    { titulo: 'Datas', indices: [3, 4] },
+    { titulo: 'Passageiros & Cabine', indices: [5, 6] },
+    { titulo: 'Meus Pontos', indices: [7, 8, 9, 10] },
+    { titulo: 'Objetivo & Limite de Taxas', indices: [11, 12, 13] },
+    { titulo: 'Hipóteses de Rota & Estratégia', indices: [14, 15] },
+  ];
+
+  function toggle(el) {
+    el.classList.toggle('marcado');
+    atualizarProgresso();
+  }
+
+  function atualizarProgresso() {
+    const marcados = document.querySelectorAll('.item.marcado').length;
+    document.getElementById('contador').textContent = marcados + ' / ' + TOTAL;
+    document.getElementById('barra').style.width = (marcados / TOTAL * 100) + '%';
+
+    if (marcados === TOTAL) {
+      gerarResumo();
+      document.getElementById('resumo-final').classList.add('visivel');
+      setTimeout(() => {
+        document.getElementById('resumo-final').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 200);
+    } else {
+      document.getElementById('resumo-final').classList.remove('visivel');
+    }
+  }
+
+  function gerarResumo() {
+    const campos = Array.from(document.querySelectorAll('.campo-resposta'));
+    const perguntas = Array.from(document.querySelectorAll('.item-pergunta'));
+    const body = document.getElementById('resumo-body');
+    body.innerHTML = '';
+
+    SECOES.forEach(secao => {
+      const div = document.createElement('div');
+      div.className = 'resumo-secao';
+
+      const titulo = document.createElement('div');
+      titulo.className = 'resumo-secao-titulo';
+      titulo.textContent = secao.titulo;
+      div.appendChild(titulo);
+
+      secao.indices.forEach(i => {
+        const linha = document.createElement('div');
+        linha.className = 'resumo-linha';
+
+        const perg = document.createElement('div');
+        perg.className = 'resumo-pergunta';
+        perg.textContent = perguntas[i] ? perguntas[i].textContent : LABELS[i];
+
+        const resp = document.createElement('div');
+        const val = campos[i] ? campos[i].value.trim() : '';
+        resp.className = 'resumo-resposta' + (val ? '' : ' vazia');
+        resp.textContent = val || 'Não preenchido';
+
+        linha.appendChild(perg);
+        linha.appendChild(resp);
+        div.appendChild(linha);
+      });
+
+      body.appendChild(div);
+    });
+  }
+
+  function limpar() {
+    if (!confirm('Limpar todas as marcações e respostas?')) return;
+    document.querySelectorAll('.item').forEach(el => el.classList.remove('marcado'));
+    document.querySelectorAll('.campo-resposta').forEach(el => el.value = '');
+    document.getElementById('resumo-final').classList.remove('visivel');
+    atualizarProgresso();
+  }
+</script>
+
+</body>
+</html>
