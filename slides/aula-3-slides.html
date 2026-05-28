@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aula 3 — Preparando para Decolar | CEP · Código da Emissão Perfeita</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gabriela&family=Roboto:wght@400;500;600;700&family=Caveat:wght@400;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.6.0/dist/reset.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.6.0/dist/reveal.css">
+
+  <style>
+    /* ── Brand tokens ── */
+    :root {
+      --verde-musgo:  #4F6F52;
+      --verde-salvia: #8FAF9A;
+      --terracota:    #D97A3A;
+      --ambar:        #E6A15A;
+      --offwhite:     #F4F1EC;
+      --branco:       #FFFFFF;
+    }
+
+    .reveal {
+      font-family: 'Roboto', sans-serif;
+      font-size: 36px;
+      color: var(--verde-musgo);
+      background: var(--offwhite);
+    }
+
+    .reveal .slides section {
+      text-align: left;
+      padding: 60px 80px;
+      box-sizing: border-box;
+    }
+
+    /* ── Slide layouts ── */
+    .slide-capa        { background: var(--terracota); }
+    .slide-citacao     { background: var(--verde-musgo); }
+    .slide-secao       { background: var(--verde-salvia); }
+    .slide-conteudo    { background: var(--offwhite); }
+    .slide-destaque    { background: var(--verde-musgo); }
+    .slide-fechamento  { background: var(--terracota); }
+    .slide-resumo      { background: var(--offwhite); }
+
+    h1, h2 {
+      font-family: 'Gabriela', serif;
+      font-weight: 400;
+      line-height: 1.1;
+      margin: 0 0 24px 0;
+    }
+
+    h3 {
+      font-family: 'Roboto', sans-serif;
+      font-weight: 700;
+      font-size: 0.7em;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin: 0 0 16px 0;
+    }
+
+    p, li {
+      font-family: 'Roboto', sans-serif;
+      font-weight: 400;
+      font-size: 0.55em;
+      line-height: 1.6;
+      margin: 0 0 8px 0;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    ul li::before {
+      content: "—";
+      margin-right: 12px;
+      color: var(--terracota);
+      font-weight: 700;
+    }
+
+    .slide-citacao ul li::before,
+    .slide-destaque ul li::before,
+    .slide-secao ul li::before {
+      color: var(--ambar);
+    }
+
+    .caveat {
+      font-family: 'Caveat', cursive;
+      font-size: 1em;
+    }
+
+    /* ── Cores por layout ── */
+    .slide-capa h1, .slide-capa p, .slide-capa .sub { color: var(--branco); }
+
+    .slide-citacao h1, .slide-citacao h2, .slide-citacao p,
+    .slide-citacao li, .slide-citacao blockquote { color: var(--branco); }
+
+    .slide-secao h1, .slide-secao h2, .slide-secao h3, .slide-secao p { color: var(--verde-musgo); }
+
+    .slide-destaque h1, .slide-destaque h2, .slide-destaque h3,
+    .slide-destaque p, .slide-destaque li { color: var(--branco); }
+
+    .slide-fechamento h1, .slide-fechamento h2,
+    .slide-fechamento p, .slide-fechamento blockquote { color: var(--branco); }
+
+    .slide-conteudo h2, .slide-conteudo h3 { color: var(--verde-musgo); }
+    .slide-conteudo li { color: #2a2a2a; }
+
+    .slide-resumo h2, .slide-resumo h3 { color: var(--verde-musgo); }
+
+    /* ── Componentes ── */
+    .tag {
+      display: inline-block;
+      background: var(--terracota);
+      color: var(--branco);
+      font-family: 'Roboto', sans-serif;
+      font-size: 0.38em;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 6px 18px;
+      border-radius: 100px;
+      margin-bottom: 24px;
+    }
+
+    .slide-destaque .tag, .slide-citacao .tag { background: var(--ambar); color: var(--verde-musgo); }
+    .slide-secao .tag { background: var(--verde-musgo); color: var(--branco); }
+
+    blockquote {
+      border-left: 4px solid var(--ambar);
+      margin: 0;
+      padding: 16px 32px;
+      font-family: 'Gabriela', serif;
+      font-size: 0.65em;
+      line-height: 1.5;
+      font-style: italic;
+    }
+
+    .slide-conteudo blockquote {
+      color: var(--verde-musgo);
+      border-left-color: var(--terracota);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.44em;
+      margin-top: 16px;
+    }
+
+    th {
+      background: var(--verde-musgo);
+      color: var(--branco);
+      font-family: 'Roboto', sans-serif;
+      font-weight: 700;
+      padding: 10px 16px;
+      text-align: left;
+      letter-spacing: 0.04em;
+    }
+
+    td {
+      padding: 10px 16px;
+      border-bottom: 1px solid #ddd;
+      color: #2a2a2a;
+    }
+
+    tr:nth-child(even) td { background: rgba(79,111,82,0.06); }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-top: 10px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 16px;
+      margin-top: 10px;
+    }
+
+    .col {
+      background: rgba(79,111,82,0.07);
+      border-radius: 12px;
+      padding: 16px 18px;
+    }
+
+    .col-destaque {
+      background: rgba(255,255,255,0.12);
+      border-radius: 12px;
+      padding: 16px 18px;
+    }
+
+    .num-grande {
+      font-family: 'Gabriela', serif;
+      font-size: 2.2em;
+      color: var(--ambar);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .num-label {
+      font-size: 0.38em;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--branco);
+      opacity: 0.7;
+    }
+
+    .passo {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      margin-bottom: 10px;
+    }
+
+    .passo-num {
+      background: var(--ambar);
+      color: var(--verde-musgo);
+      font-family: 'Roboto', sans-serif;
+      font-weight: 700;
+      font-size: 0.42em;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .passo-texto {
+      font-size: 0.48em;
+      line-height: 1.5;
+      color: var(--branco);
+    }
+
+    .passo-texto strong {
+      display: block;
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+
+    .pill {
+      display: inline-block;
+      padding: 4px 14px;
+      border-radius: 100px;
+      font-size: 0.38em;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .pill-verde { background: var(--verde-musgo); color: var(--branco); }
+    .pill-terracota { background: var(--terracota); color: var(--branco); }
+    .pill-ambar { background: var(--ambar); color: var(--verde-musgo); }
+
+    /* Compaction para slides densos */
+    .compacto h2 { font-size: 0.85em; margin-bottom: 12px; }
+    .compacto h3 { font-size: 0.42em; margin-bottom: 8px; }
+    .compacto li { font-size: 0.46em; margin-bottom: 4px; }
+    .compacto .col { padding: 16px 18px; }
+    .compacto .grid-2 { gap: 20px; margin-top: 10px; }
+
+    /* Checklist visual */
+    .checklist { list-style: none; padding: 0; margin: 0; }
+    .checklist li::before { content: "☐"; margin-right: 12px; color: var(--ambar); font-weight: 700; }
+
+    .slide-destaque .checklist li { color: var(--branco); }
+    .slide-destaque .checklist li::before { color: var(--ambar); }
+    .slide-conteudo .checklist li::before { color: var(--terracota); }
+
+    /* Pergunta highlight */
+    .pergunta {
+      font-family: 'Gabriela', serif;
+      font-size: 0.62em;
+      color: var(--ambar);
+      font-style: italic;
+      margin-bottom: 6px;
+    }
+
+    .slide-conteudo .pergunta { color: var(--terracota); }
+
+    /* ── Botão Início ── */
+    .btn-inicio {
+      position: fixed;
+      bottom: 28px;
+      left: 28px;
+      z-index: 9999;
+      background: rgba(79,111,82,0.92);
+      color: #fff;
+      font-family: 'Roboto', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-decoration: none;
+      padding: 9px 18px;
+      border-radius: 100px;
+      backdrop-filter: blur(6px);
+      transition: background 0.2s;
+    }
+    .btn-inicio:hover { background: rgba(79,111,82,1); }
+  </style>
+</head>
+<body>
+
+<a href="../index.html" class="btn-inicio">← Início</a>
+
+<div class="reveal">
+  <div class="slides">
+
+    <!-- ══ CAPA ══ -->
+    <section class="slide-capa">
+      <div class="tag">CEP · Aula 3</div>
+      <h1>Preparando<br>para Decolar</h1>
+      <p class="sub" style="margin-top:16px; font-size:0.52em; opacity:0.85;">A boa emissão começa antes da busca.</p>
+    </section>
+
+    <!-- ══ CITAÇÃO ÂNCORA ══ -->
+    <section class="slide-citacao">
+      <blockquote style="font-size:0.72em; border-left-color: var(--ambar);">
+        "Você aprendeu a buscar.<br>
+        Agora vamos aprender a <em>saber o que está procurando</em><br>
+        antes de abrir qualquer ferramenta."
+      </blockquote>
+    </section>
+
+    <!-- ══ SEÇÃO 1: O PLANO DE VOO ══ -->
+    <section class="slide-secao">
+      <div class="tag">Bloco 1</div>
+      <h1>O Plano de Voo</h1>
+      <p>Construindo o briefing da sua viagem</p>
+    </section>
+
+    <!-- O que é o briefing -->
+    <section class="slide-conteudo">
+      <div class="tag">Conceito</div>
+      <h2>O que é um briefing de viagem?</h2>
+      <p style="font-size:0.5em; margin-bottom:18px;">Antes de qualquer busca, você precisa responder a uma série de perguntas sobre sua própria viagem. Esse conjunto de respostas é o seu <strong>briefing</strong> — o mapa que vai guiar toda a estratégia de emissão.</p>
+      <div class="grid-2">
+        <div class="col">
+          <h3>Sem briefing</h3>
+          <ul>
+            <li style="font-size:0.46em;">Abre o Smiles sem saber o destino exato</li>
+            <li style="font-size:0.46em;">Pesquisa datas que não funcionam</li>
+            <li style="font-size:0.46em;">Não sabe qual programa usar</li>
+            <li style="font-size:0.46em;">Encontra algo mas não sabe se é bom</li>
+            <li style="font-size:0.46em;">Fica em loop sem decidir</li>
+          </ul>
+        </div>
+        <div class="col">
+          <h3>Com briefing</h3>
+          <ul>
+            <li style="font-size:0.46em;">Sabe exatamente o que está buscando</li>
+            <li style="font-size:0.46em;">Tem critérios para avaliar o resultado</li>
+            <li style="font-size:0.46em;">Sabe por qual programa começar</li>
+            <li style="font-size:0.46em;">Reconhece uma boa oferta quando aparece</li>
+            <li style="font-size:0.46em;">Decide com confiança</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ SEÇÃO 2: AS PERGUNTAS — DESTINO E DATAS ══ -->
+    <section class="slide-secao">
+      <div class="tag">Bloco 2</div>
+      <h1>Destino &amp; Datas</h1>
+      <p>As primeiras perguntas do briefing</p>
+    </section>
+
+    <!-- Destino -->
+    <section class="slide-conteudo compacto">
+      <div class="tag">Briefing · Parte 1</div>
+      <h2>Para onde e quando?</h2>
+      <div class="grid-2">
+        <div class="col">
+          <h3>Destino</h3>
+          <p class="pergunta">Para onde eu quero ir?</p>
+          <ul>
+            <li style="font-size:0.46em;">Cidade específica ou região?</li>
+            <li style="font-size:0.46em;">Há aeroportos alternativos no destino?</li>
+            <li style="font-size:0.46em;">Posso chegar por outro aeroporto e me deslocar?</li>
+          </ul>
+          <p class="pergunta" style="margin-top:14px;">De quais aeroportos posso sair?</p>
+          <ul>
+            <li style="font-size:0.46em;">GRU, GIG, BSB, VCP — qual a diferença de custo?</li>
+            <li style="font-size:0.46em;">Flexibilidade de aeroporto de origem abre rotas</li>
+          </ul>
+        </div>
+        <div class="col">
+          <h3>Datas</h3>
+          <p class="pergunta">Quando posso ir?</p>
+          <ul>
+            <li style="font-size:0.46em;">Datas fixas ou tenho janela de flexibilidade?</li>
+            <li style="font-size:0.46em;">Quantos dias de viagem?</li>
+            <li style="font-size:0.46em;">Há datas de retorno flexíveis?</li>
+          </ul>
+          <p class="pergunta" style="margin-top:14px;">Qual minha flexibilidade de datas?</p>
+          <ul>
+            <li style="font-size:0.46em;">± 3 dias muda tudo em disponibilidade award</li>
+            <li style="font-size:0.46em;">Temporada baixa tem mais espaço</li>
+            <li style="font-size:0.46em;">Alta temporada exige antecedência de meses</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ SEÇÃO 3: AS PERGUNTAS — PASSAGEIROS E CABINE ══ -->
+    <section class="slide-secao">
+      <div class="tag">Bloco 3</div>
+      <h1>Passageiros &amp; Cabine</h1>
+      <p>Quem viaja e como quer viajar</p>
+    </section>
+
+    <!-- Passageiros e cabine -->
+    <section class="slide-conteudo compacto">
+      <div class="tag">Briefing · Parte 2</div>
+      <h2>Quem viaja e em qual cabine?</h2>
+      <div class="grid-2">
+        <div class="col">
+          <h3>Passageiros</h3>
+          <p class="pergunta">Quantas pessoas vão viajar?</p>
+          <ul>
+            <li style="font-size:0.46em;">Disponibilidade award cai drasticamente acima de 2 pax</li>
+            <li style="font-size:0.46em;">3+ passageiros: considerar voos separados</li>
+            <li style="font-size:0.46em;">Infants e crianças têm regras específicas por programa</li>
+            <li style="font-size:0.46em;">Alguns programas têm limite de pax por emissão</li>
+          </ul>
+        </div>
+        <div class="col">
+          <h3>Cabine</h3>
+          <p class="pergunta">Qual cabine eu quero?</p>
+          <ul>
+            <li style="font-size:0.46em;">Economy, Premium Economy, Business ou First?</li>
+            <li style="font-size:0.46em;">Business geralmente é o sweet spot em award</li>
+            <li style="font-size:0.46em;">First pode custar menos pontos do que parece</li>
+            <li style="font-size:0.46em;">Premium Economy: nem sempre vale — compare</li>
+            <li style="font-size:0.46em;">Defina antes: não busque tudo ao mesmo tempo</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ SEÇÃO 4: AS PERGUNTAS — PONTOS ══ -->
+    <section class="slide-secao">
+      <div class="tag">Bloco 4</div>
+      <h1>Meus Pontos</h1>
+      <p>O que tenho e com o que posso contar</p>
+    </section>
+
+    <!-- Levantamento de pontos -->
+    <section class="slide-conteudo compacto">
+      <div class="tag">Briefing · Parte 3</div>
+      <h2>Levantamento de pontos</h2>
+      <div class="grid-2">
+        <div class="col">
+          <h3>Estoque atual</h3>
+          <p class="pergunta">Quantos pontos tenho?</p>
+          <ul>
+            <li style="font-size:0.46em;">Some tudo — pontos em programas, milhas no cartão</li>
+            <li style="font-size:0.46em;">Verifique expiração de cada saldo</li>
+            <li style="font-size:0.46em;">Pontos que expiram em breve têm prioridade</li>
+          </ul>
+          <p class="pergunta" style="margin-top:14px;">Em quais programas estão meus pontos?</p>
+          <ul>
+            <li style="font-size:0.46em;">Smiles, TudoAzul, LATAM Pass, TAP…</li>
+            <li style="font-size:0.46em;">Cada programa emite para parceiros diferentes</li>
+          </ul>
+        </div>
+        <div class="col">
+          <h3>Transferibilidade</h3>
+          <p class="pergunta">Tenho pontos transferíveis?</p>
+          <ul>
+            <li style="font-size:0.46em;">Cartões como Amex, Livelo, C6 transferem para múltiplos programas</li>
+            <li style="font-size:0.46em;">Transferência geralmente é irreversível</li>
+            <li style="font-size:0.46em;">Só transfira se já tiver disponibilidade confirmada</li>
+          </ul>
+          <p class="pergunta" style="margin-top:14px;">Tenho prazo ou posso esperar?</p>
+          <ul>
+            <li style="font-size:0.46em;">Prazo curto = menos opções, aceitar o que há</li>
+            <li style="font-size:0.46em;">Sem prazo = esperar disponibilidade ideal</li>
+            <li style="font-size:0.46em;">Long-haul Business aparece com 6–11 meses de antecedência</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ SEÇÃO 5: AS PERGUNTAS — OBJETIVO E LIMITE ══ -->
+    <section class="slide-secao">
+      <div class="tag">Bloco 5</div>
+      <h1>Objetivo &amp; Limite</h1>
+      <p>O que você quer dessa viagem e até onde vai</p>
+    </section>
+
+    <!-- Objetivo e taxas -->
+    <section class="slide-conteudo compacto">
+      <div class="tag">Briefing · Parte 4</div>
+      <h2>Objetivo da viagem e limite de taxas</h2>
+      <div class="grid-2">
+        <div class="col">
+          <h3>Objetivo da viagem</h3>
+          <p class="pergunta">Qual é o objetivo da viagem?</p>
+          <ul>
+            <li style="font-size:0.46em;"><strong>Experiência de cabine</strong> — quer voar Business ou First</li>
+            <li style="font-size:0.46em;"><strong>Destino</strong> — o avião é só transporte</li>
+            <li style="font-size:0.46em;"><strong>Maximizar pontos</strong> — ir longe gastando pouco</li>
+            <li style="font-size:0.46em;"><strong>Viajar com a família</strong> — múltiplos pax, conforto</li>
+          </ul>
+          <p style="font-size:0.42em; margin-top:12px; color: #666;">O objetivo define qual critério pesa mais na avaliação das opções.</p>
+        </div>
+        <div class="col">
+          <h3>Limite de taxas</h3>
+          <p class="pergunta">Qual é meu limite de taxas?</p>
+          <ul>
+            <li style="font-size:0.46em;">Todo award tem taxas em dinheiro real</li>
+            <li style="font-size:0.46em;">Podem variar de R$ 50 a R$ 4.000+</li>
+            <li style="font-size:0.46em;">Alguns programas cobram fuel surcharge pesado</li>
+            <li style="font-size:0.46em;">Defina seu teto antes de buscar</li>
+          </ul>
+          <p style="font-size:0.42em; margin-top:12px; color: #666;">Sem definir o teto, qualquer taxa parece razoável.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ SEÇÃO 6: HIPÓTESES DE ROTA ══ -->
+    <section class="slide-secao">
+      <div class="tag">Bloco 6</div>
+      <h1>Hipóteses de Rota</h1>
+      <p>Como montar caminhos antes de buscar</p>
+    </section>
+
+    <!-- Como montar hipóteses -->
+    <section class="slide-conteudo compacto">
+      <div class="tag">Estratégia</div>
+      <h2>Como montar hipóteses de rota</h2>
+      <p style="font-size:0.48em; margin-bottom:16px;">Antes de abrir qualquer ferramenta, escreva possibilidades de rota baseadas no que você sabe sobre alianças e parceiros.</p>
+      <div class="grid-3">
+        <div class="col">
+          <h3>1. Rota direta</h3>
+          <ul>
+            <li style="font-size:0.44em;">Qual companhia opera direto?</li>
+            <li style="font-size:0.44em;">Ela tem programa com disponibilidade real?</li>
+            <li style="font-size:0.44em;">Há parceiros que podem emitir por ela?</li>
+          </ul>
+        </div>
+        <div class="col">
+          <h3>2. Rota com conexão</h3>
+          <ul>
+            <li style="font-size:0.44em;">Hub estratégico (Frankfurt, Dubai, Doha…)</li>
+            <li style="font-size:0.44em;">Pode virar stopover?</li>
+            <li style="font-size:0.44em;">Qual aliança cobre o trecho todo?</li>
+          </ul>
+        </div>
+        <div class="col">
+          <h3>3. Rota alternativa</h3>
+          <ul>
+            <li style="font-size:0.44em;">Outro aeroporto de destino próximo</li>
+            <li style="font-size:0.44em;">Open Jaw (sai de A, volta de B)</li>
+            <li style="font-size:0.44em;">Ida e volta em programas diferentes</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Onde procurar primeiro -->
+    <section class="slide-conteudo compacto">
+      <div class="tag">Estratégia</div>
+      <h2>Como escolher onde procurar primeiro</h2>
+      <div class="grid-2">
+        <div class="col">
+          <h3>Siga os pontos</h3>
+          <ul>
+            <li style="font-size:0.46em;">Onde estão seus pontos? Comece por ali</li>
+            <li style="font-size:0.46em;">Se tem Smiles, veja o que a Smiles emite</li>
+            <li style="font-size:0.46em;">Se tem TudoAzul, explore os parceiros Azul</li>
+            <li style="font-size:0.46em;">Não busque onde não tem pontos para emitir</li>
+          </ul>
+        </div>
+        <div class="col">
+          <h3>Siga a aliança</h3>
+          <ul>
+            <li style="font-size:0.46em;">Identifique qual aliança cobre a rota</li>
+            <li style="font-size:0.46em;">Star Alliance → Smiles (emissor mais acessível)</li>
+            <li style="font-size:0.46em;">SkyTeam → Flying Blue, LATAM Pass</li>
+            <li style="font-size:0.46em;">Oneworld → LATAM Pass, TAP Miles&Go</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Por trecho, ida/volta ou alternativa -->
+    <section class="slide-destaque">
+      <div class="tag">Decisão estratégica</div>
+      <h2 style="font-size:0.9em; margin-bottom:20px;">Buscar por trecho, ida e volta ou rota alternativa?</h2>
+      <div class="grid-3">
+        <div class="col-destaque">
+          <h3 style="font-size:0.4em; color: var(--ambar); margin-bottom:10px;">Por trecho</h3>
+          <ul>
+            <li style="font-size:0.42em;">Quando programas diferentes têm espaço em direções opostas</li>
+            <li style="font-size:0.42em;">Mais flexível, mas exige dois processos</li>
+            <li style="font-size:0.42em;">Ideal quando ida ou volta está travada</li>
+          </ul>
+        </div>
+        <div class="col-destaque">
+          <h3 style="font-size:0.4em; color: var(--ambar); margin-bottom:10px;">Ida e volta</h3>
+          <ul>
+            <li style="font-size:0.42em;">Quando o mesmo programa tem espaço nos dois sentidos</li>
+            <li style="font-size:0.42em;">Mais simples, uma única emissão</li>
+            <li style="font-size:0.42em;">Verifique se o preço redondo vale vs. dois trechos</li>
+          </ul>
+        </div>
+        <div class="col-destaque">
+          <h3 style="font-size:0.4em; color: var(--ambar); margin-bottom:10px;">Alternativa</h3>
+          <ul>
+            <li style="font-size:0.42em;">Outro aeroporto de destino próximo</li>
+            <li style="font-size:0.42em;">Datas deslocadas (± semana)</li>
+            <li style="font-size:0.42em;">Rota indireta que abre mais opções</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ SEÇÃO 7: O BRIEFING COMPLETO ══ -->
+    <section class="slide-secao">
+      <div class="tag">Bloco 7</div>
+      <h1>O Briefing Completo</h1>
+      <p>Juntando todas as respostas</p>
+    </section>
+
+    <!-- Checklist do briefing -->
+    <section class="slide-conteudo">
+      <div class="tag">Checklist</div>
+      <h2 style="font-size:0.85em; margin-bottom:14px;">Seu briefing antes de qualquer busca</h2>
+      <div class="grid-2">
+        <div class="col">
+          <h3 style="font-size:0.4em; margin-bottom:10px;">Viagem</h3>
+          <ul class="checklist">
+            <li style="font-size:0.44em;">Para onde quero ir?</li>
+            <li style="font-size:0.44em;">De qual aeroporto posso sair?</li>
+            <li style="font-size:0.44em;">Posso chegar por outro aeroporto?</li>
+            <li style="font-size:0.44em;">Quando posso ir? Qual minha janela de datas?</li>
+            <li style="font-size:0.44em;">Quantas pessoas vão viajar?</li>
+            <li style="font-size:0.44em;">Qual cabine eu quero?</li>
+            <li style="font-size:0.44em;">Qual é o objetivo da viagem?</li>
+          </ul>
+        </div>
+        <div class="col">
+          <h3 style="font-size:0.4em; margin-bottom:10px;">Pontos &amp; Estratégia</h3>
+          <ul class="checklist">
+            <li style="font-size:0.44em;">Quantos pontos tenho e onde estão?</li>
+            <li style="font-size:0.44em;">Tenho pontos transferíveis?</li>
+            <li style="font-size:0.44em;">Tenho prazo de expiração?</li>
+            <li style="font-size:0.44em;">Tenho prazo de viagem ou posso esperar?</li>
+            <li style="font-size:0.44em;">Qual meu limite de taxas em dinheiro?</li>
+            <li style="font-size:0.44em;">Quais hipóteses de rota tenho?</li>
+            <li style="font-size:0.44em;">Por qual programa começo a busca?</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ IDEIA-CHAVE ══ -->
+    <section class="slide-citacao">
+      <div class="tag">Ideia-chave</div>
+      <blockquote style="font-size:0.75em; border-left-color: var(--ambar); margin-top: 20px;">
+        "A boa emissão começa antes da busca.<br>
+        Ela começa quando você sabe exatamente<br>
+        o que está tentando encontrar."
+      </blockquote>
+    </section>
+
+    <!-- ══ TAREFA PÓS-AULA ══ -->
+    <section class="slide-destaque">
+      <div class="tag">Tarefa pós-aula</div>
+      <h2 style="font-size:0.85em; margin-bottom:18px;">Preencha o seu briefing</h2>
+      <p style="font-size:0.48em; margin-bottom:20px;">Antes da próxima aula, responda às 14 perguntas do briefing para a viagem que você quer emitir. Escreva no papel, no celular — o formato não importa. O que importa é responder.</p>
+      <div class="grid-2">
+        <div class="col-destaque">
+          <h3 style="font-size:0.4em; color: var(--ambar); margin-bottom:10px;">Você vai precisar saber</h3>
+          <ul>
+            <li style="font-size:0.44em;">Destino e aeroportos</li>
+            <li style="font-size:0.44em;">Datas e flexibilidade</li>
+            <li style="font-size:0.44em;">Passageiros e cabine</li>
+            <li style="font-size:0.44em;">Saldo de pontos e programas</li>
+          </ul>
+        </div>
+        <div class="col-destaque">
+          <h3 style="font-size:0.4em; color: var(--ambar); margin-bottom:10px;">Na próxima aula</h3>
+          <ul>
+            <li style="font-size:0.44em;">Vamos usar o seu briefing real</li>
+            <li style="font-size:0.44em;">Montar as hipóteses de rota juntas</li>
+            <li style="font-size:0.44em;">Fazer a busca ao vivo</li>
+            <li style="font-size:0.44em;">Avaliar e escolher a melhor opção</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ FECHAMENTO ══ -->
+    <section class="slide-fechamento">
+      <div class="tag">CEP · Aula 3</div>
+      <h1>Até a próxima<br>decolagem.</h1>
+      <p class="sub" style="margin-top:20px; font-size:0.5em; opacity:0.85;">Bruna Araújo · @eujuntomilhas</p>
+    </section>
+
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@4.6.0/dist/reveal.js"></script>
+<script>
+  Reveal.initialize({
+    hash: true,
+    controls: true,
+    progress: true,
+    center: false,
+    transition: 'fade',
+    width: 1280,
+    height: 720,
+  });
+</script>
+</body>
+</html>
