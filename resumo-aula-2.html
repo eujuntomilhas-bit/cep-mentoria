@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Resumo Aula 2 — CEP · Código da Emissão Perfeita</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gabriela&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: #F4F1EC;
+      color: #2c2c2c;
+      padding: 48px 24px 80px;
+    }
+
+    .container {
+      max-width: 780px;
+      margin: 0 auto;
+    }
+
+    /* ── Cabeçalho ── */
+    header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .tag {
+      display: inline-block;
+      background: #D97A3A;
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 6px 18px;
+      border-radius: 100px;
+      margin-bottom: 18px;
+    }
+
+    header h1 {
+      font-family: 'Gabriela', serif;
+      font-size: 2rem;
+      color: #4F6F52;
+      line-height: 1.2;
+      margin-bottom: 10px;
+    }
+
+    header .meta {
+      font-size: 0.85rem;
+      color: #9ab09e;
+    }
+
+    /* ── Seções ── */
+    .secao-titulo {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #D97A3A;
+      margin: 40px 0 14px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid #e8e0d5;
+    }
+
+    /* ── Card base ── */
+    .card {
+      background: #fff;
+      border-radius: 14px;
+      padding: 22px 26px;
+      margin-bottom: 12px;
+      box-shadow: 0 2px 8px rgba(79,111,82,0.07);
+    }
+
+    .card h3 {
+      font-family: 'Gabriela', serif;
+      font-size: 1rem;
+      color: #4F6F52;
+      margin-bottom: 10px;
+    }
+
+    .card p,
+    .card li {
+      font-size: 0.875rem;
+      line-height: 1.7;
+      color: #444;
+    }
+
+    .card ul {
+      padding-left: 18px;
+      margin-top: 6px;
+    }
+
+    .card ul li {
+      margin-bottom: 6px;
+    }
+
+    /* ── Destaque inline ── */
+    .pill {
+      display: inline-block;
+      background: #f0f7f1;
+      color: #4F6F52;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 10px;
+      border-radius: 100px;
+      margin-right: 4px;
+      vertical-align: middle;
+    }
+
+    .pill-terra {
+      background: #fdf0e8;
+      color: #D97A3A;
+    }
+
+    /* ── Card de destaque (amarelo/aviso) ── */
+    .card-destaque {
+      background: #fff8ee;
+      border-left: 4px solid #D97A3A;
+    }
+
+    .card-destaque h3 {
+      color: #D97A3A;
+    }
+
+    /* ── Card escuro (próxima aula) ── */
+    .card-escuro {
+      background: #4F6F52;
+      color: #fff;
+    }
+
+    .card-escuro h3 {
+      font-family: 'Gabriela', serif;
+      font-size: 1rem;
+      color: #fff;
+      margin-bottom: 10px;
+    }
+
+    .card-escuro p,
+    .card-escuro li {
+      color: rgba(255,255,255,0.85);
+      font-size: 0.875rem;
+      line-height: 1.7;
+    }
+
+    .card-escuro ul {
+      padding-left: 18px;
+    }
+
+    .card-escuro li {
+      margin-bottom: 6px;
+    }
+
+    /* ── Grid 2 colunas ── */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    @media (max-width: 540px) {
+      .grid-2 { grid-template-columns: 1fr; }
+    }
+
+    /* ── Ferramenta badge ── */
+    .ferramenta-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .ferramenta-badge {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #9ab09e;
+    }
+
+    .ferramenta-badge.alianca-star   { color: #3b6fb6; }
+    .ferramenta-badge.alianca-one    { color: #8b1a1a; }
+    .ferramenta-badge.alianca-sky    { color: #1a5fa8; }
+    .ferramenta-badge.agregador      { color: #7a5c2e; }
+
+    /* ── Linha de item de ação ── */
+    .acao {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 12px 0;
+      border-bottom: 1px solid #f0ebe4;
+    }
+
+    .acao:last-child { border-bottom: none; }
+
+    .acao-quem {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #fff;
+      background: #D97A3A;
+      padding: 2px 10px;
+      border-radius: 100px;
+      white-space: nowrap;
+      margin-top: 2px;
+    }
+
+    .acao-quem.mentora { background: #4F6F52; }
+
+    .acao-texto {
+      font-size: 0.875rem;
+      color: #444;
+      line-height: 1.6;
+    }
+
+    /* ── Rodapé ── */
+    footer {
+      text-align: center;
+      margin-top: 56px;
+      font-size: 0.78rem;
+      color: #b5c9b8;
+    }
+
+    footer a {
+      color: #D97A3A;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <header>
+    <div class="tag">CEP — Código da Emissão Perfeita</div>
+    <h1>Resumo — Aula 2</h1>
+    <p class="meta">Técnicas Avançadas de Busca e Comparação &nbsp;·&nbsp; Bruna Araújo &nbsp;·&nbsp; @eujuntomilhas</p>
+  </header>
+
+  <!-- ── RESULTADO GERAL ── -->
+  <div class="secao-titulo">Principais Resultados</div>
+  <div class="card">
+    <p>Bruna ensinou técnicas avançadas para buscar e comparar passagens aéreas usando múltiplos programas de milhas, enfatizando que é essencial <strong>validar disponibilidade em diferentes plataformas antes de transferir pontos</strong>. A sessão focou em demonstrações práticas usando United MileagePlus, Air Canada Aeroplan, sites das alianças Star Alliance, Oneworld e SkyTeam, além do Seats.aero como agregador.</p>
+  </div>
+
+  <!-- ── CONCEITOS-CHAVE ── -->
+  <div class="secao-titulo">Conceitos-Chave Ensinados</div>
+
+  <div class="grid-2">
+    <div class="card">
+      <h3>Menos milhas ≠ mais barato</h3>
+      <p>Uma passagem de 70 mil pontos pode custar menos que 50 mil pontos dependendo do custo de produção das milhas em cada programa.</p>
+    </div>
+    <div class="card">
+      <h3>Desmembramento de trechos</h3>
+      <p>Quando voos com múltiplas companhias não aparecem juntos, pesquisar cada trecho separadamente aumenta as chances de encontrar disponibilidade.</p>
+    </div>
+    <div class="card">
+      <h3>Tarifa Award (classe X ou V)</h3>
+      <p>Identificar essas classes tarifárias nos resultados indica disponibilidade para emissão com milhas em programas parceiros.</p>
+    </div>
+    <div class="card">
+      <h3>Tabela fixa vs. dinâmica</h3>
+      <p>Tabela fixa tem preço por zona geográfica (United, TAP, British). Dinâmica varia com demanda (LATAM Pass, Smiles, Azul, Flying Blue).</p>
+    </div>
+  </div>
+
+  <div class="card card-destaque" style="margin-top: 12px;">
+    <h3>Voos fantasma</h3>
+    <p>Assentos que aparecem na busca mas não existem de verdade. Sempre simule a compra até etapas finais para confirmar a disponibilidade real antes de transferir pontos.</p>
+  </div>
+
+  <!-- ── FERRAMENTAS ── -->
+  <div class="secao-titulo">Ferramentas Apresentadas</div>
+
+  <div class="card">
+    <div class="ferramenta-header">
+      <h3 style="margin:0;">United MileagePlus</h3>
+      <span class="ferramenta-badge alianca-star">Star Alliance</span>
+    </div>
+    <ul>
+      <li>Melhor para encontrar voos Azul, TAP, Lufthansa, Swiss e Turkish em tarifa award</li>
+      <li>Mostra calendário mensal completo de disponibilidade</li>
+      <li>Ponto de partida recomendado para qualquer busca Star Alliance</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="ferramenta-header">
+      <h3 style="margin:0;">Air Canada Aeroplan</h3>
+      <span class="ferramenta-badge alianca-star">Star Alliance</span>
+    </div>
+    <ul>
+      <li>Útil para voos Lufthansa/Swiss quando United não mostra disponibilidade</li>
+      <li>Parceiras bilaterais incluem Emirates e Azul</li>
+      <li>Compra de milhas em promoção pode ser bom negócio para emitir direto</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="ferramenta-header">
+      <h3 style="margin:0;">British Airways Executive Club</h3>
+      <span class="ferramenta-badge alianca-one">Oneworld</span>
+    </div>
+    <ul>
+      <li>Essencial para confirmar disponibilidade em Qatar Airways, Cathay Pacific e American Airlines</li>
+      <li>Conecta com Iberia Plus e Finnair (sistema Avios compartilhado)</li>
+      <li>Estoques de Avios não aparecem no Seats.aero — precisa checar diretamente</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="ferramenta-header">
+      <h3 style="margin:0;">Flying Blue (Air France / KLM)</h3>
+      <span class="ferramenta-badge alianca-sky">SkyTeam</span>
+    </div>
+    <ul>
+      <li>Promoções mensais com até 50% de desconto em milhas</li>
+      <li>Bom para voos Air France, KLM e Delta</li>
+      <li>Delta também pode ser emitida com LATAM Pass (tabela fixa)</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="ferramenta-header">
+      <h3 style="margin:0;">Seats.aero</h3>
+      <span class="ferramenta-badge agregador">Agregador</span>
+    </div>
+    <ul>
+      <li>Mostra disponibilidade de múltiplos programas simultaneamente</li>
+      <li><strong>Verde</strong> = direto disponível &nbsp;·&nbsp; <strong>Azul</strong> = conexão &nbsp;·&nbsp; <strong>Cinza</strong> = indisponível</li>
+      <li>Não inclui LATAM; Avios (British/Iberia) podem não aparecer</li>
+      <li>Sempre confirme no site oficial do programa antes de transferir pontos</li>
+    </ul>
+  </div>
+
+  <!-- ── ESTRATÉGIAS PRÁTICAS ── -->
+  <div class="secao-titulo">Estratégias e Casos Práticos</div>
+
+  <div class="card">
+    <h3>São Paulo → Frankfurt</h3>
+    <ul>
+      <li>Voo Lufthansa direto em tarifa award (classe X) localizado via United MileagePlus</li>
+      <li>Alternativa via TAP: 85 mil pontos (tabela fixa Star Alliance)</li>
+      <li>Rota via Azul Pelo Mundo desmembrada: GRU–Chicago (112k) + Chicago–Frankfurt (184k) = 296k pontos vs. 311k no direto — economia de 35 mil pontos com possibilidade de stopover em Chicago</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3>Tabela fixa LATAM — limitações</h3>
+    <ul>
+      <li>Não é possível emitir voos do Brasil para a Europa usando tabela fixa LATAM (exceto Delta para Atlanta ou Qatar para Doha)</li>
+      <li>Solução: emitir saindo de Buenos Aires, Santiago ou Montevidéu</li>
+      <li>Alternativa: usar tabela para trechos internacionais como Europa–Ásia Oriental (36–60 mil pontos)</li>
+    </ul>
+  </div>
+
+  <div class="card card-destaque">
+    <h3>Caso de sucesso — São Paulo → Montreal</h3>
+    <p>5 passagens em classe executiva emitidas por 59 mil pontos Air Canada cada (vs. 159k na tabela normal). Milhas compradas em promoção por R$ 70/milheiro — total de R$ 23 mil para 5 pessoas.</p>
+  </div>
+
+  <!-- ── DECISÕES E ACORDOS ── -->
+  <div class="secao-titulo">Decisões e Acordos</div>
+
+  <div class="card">
+    <ul>
+      <li><strong>Estratégia de busca:</strong> sempre pesquisar em múltiplos programas antes de emitir — o mesmo voo pode ter disponibilidade diferente em cada plataforma</li>
+      <li><strong>Validação obrigatória:</strong> nunca transferir pontos antes de confirmar disponibilidade no site oficial; transferências são irreversíveis e assentos podem desaparecer</li>
+      <li><strong>Programas prioritários:</strong> TAP Miles&amp;Go (malha aérea + tabela fixa acessível), Azul Fidelidade (produção orgânica) e Smiles/LATAM Pass (doméstico e parceiros)</li>
+    </ul>
+  </div>
+
+  <!-- ── DICAS ── -->
+  <div class="secao-titulo">Dicas Importantes</div>
+
+  <div class="grid-2">
+    <div class="card">
+      <h3>Cartões para acumular TAP</h3>
+      <p>Caixa Econômica, C6 Bank e Itaú transferem 1:1 para TAP Miles&amp;Go. Livelo transfere com deságio: 2,2:1 (clube) ou 2,7:1 (sem clube).</p>
+    </div>
+    <div class="card">
+      <h3>Pesquisa por número de passageiros</h3>
+      <p>A quantidade de passageiros pode alterar a tarifa disponível. Se buscar 5 pessoas mostrar tarifa mais cara, teste emissões separadas.</p>
+    </div>
+    <div class="card">
+      <h3>Reserva LATAM tabela fixa</h3>
+      <p>Ligue ou use o WhatsApp para fazer reserva com localizador. Você tem 24h para transferir pontos e pagar taxas.</p>
+    </div>
+    <div class="card">
+      <h3>Fortaleza → Madrid via Iberia</h3>
+      <p>Voos por 16 mil Avios (só bagagem de mão) ou 20 mil (com bagagem despachada) usando pontos Esfera com deságio 2:1.</p>
+    </div>
+  </div>
+
+  <!-- ── PENDÊNCIAS ── -->
+  <div class="secao-titulo">Pendências para Confirmação</div>
+
+  <div class="card">
+    <ul>
+      <li><strong>Stopover gratuito Air Canada:</strong> verificar se é válido para todas as emissões ou apenas voos diretos com Air Canada</li>
+      <li><strong>Disponibilidade Iberia no Seats.aero:</strong> voos Avios apareceram temporariamente e depois sumiram — instabilidade a monitorar</li>
+      <li><strong>Valor LATAM Pass para voos Delta:</strong> consultar tabela fixa para calcular viabilidade da rota</li>
+    </ul>
+  </div>
+
+  <!-- ── ITENS DE AÇÃO ── -->
+  <div class="secao-titulo">Itens de Ação</div>
+
+  <div class="card" style="padding: 18px 26px;">
+    <div class="acao">
+      <span class="acao-quem">Aluna</span>
+      <span class="acao-texto">Criar contas no British Airways Executive Club, Qatar Privilege Club e Finnair Plus (para conectar com Iberia/British na próxima aula)</span>
+    </div>
+    <div class="acao">
+      <span class="acao-quem">Aluna</span>
+      <span class="acao-texto">Praticar buscas diárias no Seats.aero e nos sites das companhias para familiarizar-se com as interfaces e identificar padrões de disponibilidade</span>
+    </div>
+    <div class="acao">
+      <span class="acao-quem">Aluna</span>
+      <span class="acao-texto">Escolher destino específico (Punta Cana ou Madrid) para estudo de caso prático na próxima aula</span>
+    </div>
+    <div class="acao">
+      <span class="acao-quem mentora">Mentora</span>
+      <span class="acao-texto">Adicionar links para United MileagePlus, tabela fixa LATAM e guia de conexão de contas Avios no material didático</span>
+    </div>
+    <div class="acao">
+      <span class="acao-quem mentora">Mentora</span>
+      <span class="acao-texto">Criar planilha modelo para organização de logins e senhas dos programas de fidelidade</span>
+    </div>
+  </div>
+
+  <!-- ── PRÓXIMA AULA ── -->
+  <div class="secao-titulo">Próxima Aula</div>
+
+  <div class="card card-escuro">
+    <h3>Aula 3 — A confirmar</h3>
+    <ul>
+      <li>Conectar contas British Airways, Iberia, Qatar e Finnair (sistema Avios)</li>
+      <li>Estudo de caso prático com destino escolhido</li>
+      <li>Técnicas de emissão e otimização de rotas complexas</li>
+    </ul>
+  </div>
+
+</div>
+
+<footer>
+  eujuntomilhas · CEP Mentoria
+</footer>
+
+<a href="index.html" style="
+  position: fixed;
+  top: 16px;
+  left: 16px;
+  z-index: 9999;
+  background: rgba(79,111,82,0.85);
+  color: #fff;
+  font-family: 'Roboto', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-decoration: none;
+  padding: 7px 16px;
+  border-radius: 100px;
+  backdrop-filter: blur(4px);
+  transition: background 0.2s;
+" onmouseover="this.style.background='rgba(217,122,58,0.92)'" onmouseout="this.style.background='rgba(79,111,82,0.85)'">← Início</a>
+
+</body>
+</html>

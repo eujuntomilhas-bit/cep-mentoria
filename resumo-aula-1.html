@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Resumo Aula 1 — CEP · Código da Emissão Perfeita</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gabriela&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: #F4F1EC;
+      color: #2c2c2c;
+      padding: 48px 24px 80px;
+    }
+
+    .container {
+      max-width: 780px;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .tag {
+      display: inline-block;
+      background: #D97A3A;
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 6px 18px;
+      border-radius: 100px;
+      margin-bottom: 18px;
+    }
+
+    header h1 {
+      font-family: 'Gabriela', serif;
+      font-size: 2rem;
+      color: #4F6F52;
+      line-height: 1.2;
+      margin-bottom: 10px;
+    }
+
+    header .meta {
+      font-size: 0.85rem;
+      color: #9ab09e;
+    }
+
+    .secao-titulo {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #D97A3A;
+      margin: 40px 0 14px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid #e8e0d5;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 14px;
+      padding: 22px 26px;
+      margin-bottom: 12px;
+      box-shadow: 0 2px 8px rgba(79,111,82,0.07);
+    }
+
+    .card h3 {
+      font-family: 'Gabriela', serif;
+      font-size: 1rem;
+      color: #4F6F52;
+      margin-bottom: 10px;
+    }
+
+    .card p,
+    .card li {
+      font-size: 0.875rem;
+      line-height: 1.7;
+      color: #444;
+    }
+
+    .card ul {
+      padding-left: 18px;
+      margin-top: 6px;
+    }
+
+    .card ul li { margin-bottom: 6px; }
+
+    .card-destaque {
+      background: #fff8ee;
+      border-left: 4px solid #D97A3A;
+    }
+
+    .card-destaque h3 { color: #D97A3A; }
+
+    .card-escuro {
+      background: #4F6F52;
+    }
+
+    .card-escuro h3 {
+      font-family: 'Gabriela', serif;
+      font-size: 1rem;
+      color: #fff;
+      margin-bottom: 10px;
+    }
+
+    .card-escuro p,
+    .card-escuro li {
+      color: rgba(255,255,255,0.85);
+      font-size: 0.875rem;
+      line-height: 1.7;
+    }
+
+    .card-escuro ul { padding-left: 18px; }
+    .card-escuro li { margin-bottom: 6px; }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    @media (max-width: 540px) {
+      .grid-2 { grid-template-columns: 1fr; }
+    }
+
+    .acao {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 12px 0;
+      border-bottom: 1px solid #f0ebe4;
+    }
+
+    .acao:last-child { border-bottom: none; }
+
+    .acao-quem {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #fff;
+      background: #D97A3A;
+      padding: 2px 10px;
+      border-radius: 100px;
+      white-space: nowrap;
+      margin-top: 2px;
+    }
+
+    .acao-quem.mentora { background: #4F6F52; }
+
+    .acao-texto {
+      font-size: 0.875rem;
+      color: #444;
+      line-height: 1.6;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 56px;
+      font-size: 0.78rem;
+      color: #b5c9b8;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <header>
+    <div class="tag">CEP — Código da Emissão Perfeita</div>
+    <h1>Resumo — Aula 1</h1>
+    <p class="meta">Fundamentos que Destravam a Cabeça &nbsp;·&nbsp; Bruna Araújo &nbsp;·&nbsp; @eujuntomilhas</p>
+  </header>
+
+  <!-- ── RESULTADO GERAL ── -->
+  <div class="secao-titulo">Principais Resultados</div>
+  <div class="card">
+    <p>Bruna apresentou os conceitos fundamentais de emissões de passagens com milhas (tarifas Award) versus passagens comerciais, cobrindo alianças aéreas, parcerias bilaterais, estruturas de rota e Sweet Spots. A aula estabeleceu a base estrutural do método — entender a lógica que não muda para poder aplicar em qualquer destino.</p>
+  </div>
+
+  <!-- ── CONCEITOS-CHAVE ── -->
+  <div class="secao-titulo">Conceitos-Chave Apresentados</div>
+
+  <div class="card">
+    <h3>Tarifas Award vs. Comerciais</h3>
+    <ul>
+      <li>Tarifas Award são emissões com milhas puras, originadas do sistema de recompensa das companhias aéreas</li>
+      <li>Passagens comerciais variam por demanda, distância e sazonalidade (yield management)</li>
+      <li>Tarifas Award geralmente são melhores — mas sempre comparar antes de emitir</li>
+      <li>Exemplo real: Business Atlântico por 22 mil milhas vs. R$ 4.800–7.000 em dinheiro</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3>Alianças Aéreas e Parcerias</h3>
+    <ul>
+      <li>Três grandes alianças: <strong>Star Alliance, OneWorld e SkyTeam</strong></li>
+      <li>Companhias podem ter acordos bilaterais fora das alianças (ex: Smiles com TAP, Air Canada, Emirates)</li>
+      <li>LATAM saiu da OneWorld em 2020/2021 mas mantém parcerias individuais; Delta comprou 20% das ações</li>
+      <li><strong>Regra importante:</strong> nunca buscar no site da companhia que opera — buscar no programa parceiro</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3>Estruturas de Rota</h3>
+    <ul>
+      <li><strong>Open Jaw:</strong> chegar em uma cidade e sair de outra (ex: São Paulo–Paris / Roma–São Paulo)</li>
+      <li><strong>Circle Trip:</strong> mesma origem e destino, conexões diferentes na ida e volta</li>
+      <li><strong>Stopover:</strong> parada voluntária com mais de 24h — Ethiopian, Qatar, Turkish e Air China oferecem hotel/traslado gratuito</li>
+      <li><strong>Long Layover:</strong> conexão de 6–20h — Turkish Airlines oferece tour gratuito por Istambul</li>
+    </ul>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <h3>Sweet Spots</h3>
+      <p>Combinações de rota com custo desproporcional baixo. Exemplo: Brasil–Europa em business por 120 mil pontos TAP. Vale mapear os sweet spots dos programas que você acumula.</p>
+    </div>
+    <div class="card">
+      <h3>Marriage Segments</h3>
+      <p>Trechos casados que só aparecem juntos, não separadamente. Comum em voos Air France/KLM. Estratégia: buscar em programas parceiros alternativos quando não encontrar disponibilidade.</p>
+    </div>
+  </div>
+
+  <!-- ── FERRAMENTAS ── -->
+  <div class="secao-titulo">Ferramentas Discutidas</div>
+
+  <div class="grid-2">
+    <div class="card">
+      <h3>SeatSpy</h3>
+      <p>Recomendado como prioridade. Permite buscas até 60 dias à frente e múltiplas pesquisas diárias na versão gratuita. Melhor custo-benefício para monitorar disponibilidade award.</p>
+    </div>
+    <div class="card">
+      <h3>Flying Blue</h3>
+      <p>Programa Air France/KLM. Requer login para pesquisar disponibilidade. Útil para rotas SkyTeam e promoções mensais de resgate.</p>
+    </div>
+  </div>
+
+  <div class="card card-destaque">
+    <h3>Flight Connections</h3>
+    <p>Dispensável para a maioria dos casos — Google Flights ou ChatGPT cumprem o mesmo papel para visualizar rotas. Bruna vai verificar se há promoção disponível antes de recomendar a assinatura.</p>
+  </div>
+
+  <!-- ── ESCLARECIMENTOS ── -->
+  <div class="secao-titulo">Esclarecimentos de Dúvidas</div>
+
+  <div class="card">
+    <h3>Emissão Delta x LATAM</h3>
+    <ul>
+      <li>Voos LATAM podem aparecer disponíveis para emissão com milhas Delta (e outros parceiros) a preços fixos</li>
+      <li>Para emitir com milhas LATAM do próprio voo, o preço é dinâmico e varia constantemente</li>
+      <li>Estratégia: produzir milhas no programa que oferece o melhor negócio para o destino específico</li>
+    </ul>
+  </div>
+
+  <!-- ── DECISÕES E ACORDOS ── -->
+  <div class="secao-titulo">Decisões e Acordos</div>
+
+  <div class="card">
+    <ul>
+      <li><strong>Próximos encontros:</strong> quintas-feiras às 15h (exceto 22 de maio)</li>
+      <li><strong>Material a revisar:</strong> tabela fixa e mapa da viagem já enviados — focar nisso antes da próxima aula</li>
+      <li><strong>Ferramenta recomendada:</strong> priorizar assinatura do SeatSpy sobre Flight Connections</li>
+      <li><strong>Abordagem:</strong> focar na estrutura (que não muda) em vez de situações específicas (que podem mudar)</li>
+    </ul>
+  </div>
+
+  <!-- ── PENDÊNCIAS ── -->
+  <div class="secao-titulo">Pendências para Confirmação</div>
+
+  <div class="card">
+    <ul>
+      <li>Atualizar valores de Sweet Spots no material (dados desatualizados da Smiles e Iberia Plus)</li>
+      <li>Verificar se há promoção do Flight Connections disponível para assinar</li>
+      <li>Confirmar lista completa de alianças aéreas no material de tabela fixa</li>
+    </ul>
+  </div>
+
+  <!-- ── ITENS DE AÇÃO ── -->
+  <div class="secao-titulo">Itens de Ação</div>
+
+  <div class="card" style="padding: 18px 26px;">
+    <div class="acao">
+      <span class="acao-quem mentora">Mentora</span>
+      <span class="acao-texto">Enviar gravação, transcrição e apresentações da aula por e-mail ou drive</span>
+    </div>
+    <div class="acao">
+      <span class="acao-quem mentora">Mentora</span>
+      <span class="acao-texto">Atualizar valores de Sweet Spots no material antes de enviar</span>
+    </div>
+    <div class="acao">
+      <span class="acao-quem">Aluna</span>
+      <span class="acao-texto">Revisar material de tabela fixa e mapa da viagem antes da próxima aula</span>
+    </div>
+    <div class="acao">
+      <span class="acao-quem">Aluna</span>
+      <span class="acao-texto">Explorar o SeatSpy e praticar buscas de disponibilidade</span>
+    </div>
+    <div class="acao">
+      <span class="acao-quem">Aluna</span>
+      <span class="acao-texto">Enviar dúvidas por mensagem a qualquer momento</span>
+    </div>
+  </div>
+
+  <!-- ── PRÓXIMA AULA ── -->
+  <div class="secao-titulo">Próxima Aula</div>
+
+  <div class="card card-escuro">
+    <h3>Aula 2 — Técnicas Avançadas de Busca e Comparação</h3>
+    <ul>
+      <li>Aplicação prática dos conceitos apresentados</li>
+      <li>Buscas e simulações reais de emissões ao vivo</li>
+      <li>Ferramentas internacionais de busca award</li>
+    </ul>
+  </div>
+
+</div>
+
+<footer>
+  eujuntomilhas · CEP Mentoria
+</footer>
+
+<a href="index.html" style="
+  position: fixed;
+  top: 16px;
+  left: 16px;
+  z-index: 9999;
+  background: rgba(79,111,82,0.85);
+  color: #fff;
+  font-family: 'Roboto', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-decoration: none;
+  padding: 7px 16px;
+  border-radius: 100px;
+  backdrop-filter: blur(4px);
+  transition: background 0.2s;
+" onmouseover="this.style.background='rgba(217,122,58,0.92)'" onmouseout="this.style.background='rgba(79,111,82,0.85)'">← Início</a>
+
+</body>
+</html>
