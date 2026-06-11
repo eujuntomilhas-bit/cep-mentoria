@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aula 4 — Montagem do Roteiro Award | CEP · Código da Emissão Perfeita</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gabriela&family=Roboto:wght@400;500;600;700&family=Caveat:wght@400;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.6.0/dist/reset.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.6.0/dist/reveal.css">
+
+  <style>
+    /* ── Brand tokens ── */
+    :root {
+      --verde-musgo:  #4F6F52;
+      --verde-salvia: #8FAF9A;
+      --terracota:    #D97A3A;
+      --ambar:        #E6A15A;
+      --offwhite:     #F4F1EC;
+      --branco:       #FFFFFF;
+    }
+
+    .reveal {
+      font-family: 'Roboto', sans-serif;
+      font-size: 36px;
+      color: var(--verde-musgo);
+      background: var(--offwhite);
+    }
+
+    .reveal .slides section {
+      text-align: left;
+      padding: 60px 80px;
+      box-sizing: border-box;
+    }
+
+    /* ── Slide layouts ── */
+    .slide-capa        { background: var(--terracota); }
+    .slide-citacao     { background: var(--verde-musgo); }
+    .slide-secao       { background: var(--verde-salvia); }
+    .slide-conteudo    { background: var(--offwhite); }
+    .slide-destaque    { background: var(--verde-musgo); }
+    .slide-fechamento  { background: var(--terracota); }
+    .slide-resumo      { background: var(--offwhite); }
+
+    h1, h2 {
+      font-family: 'Gabriela', serif;
+      font-weight: 400;
+      line-height: 1.1;
+      margin: 0 0 24px 0;
+    }
+
+    h3 {
+      font-family: 'Roboto', sans-serif;
+      font-weight: 700;
+      font-size: 0.7em;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin: 0 0 16px 0;
+    }
+
+    p, li {
+      font-family: 'Roboto', sans-serif;
+      font-weight: 400;
+      font-size: 0.55em;
+      line-height: 1.6;
+      margin: 0 0 8px 0;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    ul li::before {
+      content: "—";
+      margin-right: 12px;
+      color: var(--terracota);
+      font-weight: 700;
+    }
+
+    .slide-citacao ul li::before,
+    .slide-destaque ul li::before,
+    .slide-secao ul li::before {
+      color: var(--ambar);
+    }
+
+    .caveat {
+      font-family: 'Caveat', cursive;
+      font-size: 1em;
+    }
+
+    /* ── Cores por layout ── */
+    .slide-capa h1, .slide-capa p, .slide-capa .sub { color: var(--branco); }
+
+    .slide-citacao h1, .slide-citacao h2, .slide-citacao p,
+    .slide-citacao li, .slide-citacao blockquote { color: var(--branco); }
+
+    .slide-secao h1, .slide-secao h2, .slide-secao h3, .slide-secao p { color: var(--verde-musgo); }
+
+    .slide-destaque h1, .slide-destaque h2, .slide-destaque h3,
+    .slide-destaque p, .slide-destaque li { color: var(--branco); }
+
+    .slide-fechamento h1, .slide-fechamento h2,
+    .slide-fechamento p, .slide-fechamento blockquote { color: var(--branco); }
+
+    .slide-conteudo h2, .slide-conteudo h3 { color: var(--verde-musgo); }
+    .slide-conteudo li { color: #2a2a2a; }
+
+    .slide-resumo h2, .slide-resumo h3 { color: var(--verde-musgo); }
+
+    /* ── Componentes ── */
+    .tag {
+      display: inline-block;
+      background: var(--terracota);
+      color: var(--branco);
+      font-family: 'Roboto', sans-serif;
+      font-size: 0.38em;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 6px 18px;
+      border-radius: 100px;
+      margin-bottom: 24px;
+    }
+
+    .slide-destaque .tag, .slide-citacao .tag { background: var(--ambar); color: var(--verde-musgo); }
+    .slide-secao .tag { background: var(--verde-musgo); color: var(--branco); }
+
+    blockquote {
+      border-left: 4px solid var(--ambar);
+      margin: 0;
+      padding: 16px 32px;
+      font-family: 'Gabriela', serif;
+      font-size: 0.65em;
+      line-height: 1.5;
+      font-style: italic;
+    }
+
+    .slide-conteudo blockquote {
+      color: var(--verde-musgo);
+      border-left-color: var(--terracota);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.44em;
+      margin-top: 16px;
+    }
+
+    th {
+      background: var(--verde-musgo);
+      color: var(--branco);
+      font-family: 'Roboto', sans-serif;
+      font-weight: 700;
+      padding: 10px 16px;
+      text-align: left;
+      letter-spacing: 0.04em;
+    }
+
+    td {
+      padding: 10px 16px;
+      border-bottom: 1px solid #ddd;
+      color: #2a2a2a;
+    }
+
+    tr:nth-child(even) td { background: rgba(79,111,82,0.06); }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-top: 10px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 16px;
+      margin-top: 10px;
+    }
+
+    .col {
+      background: rgba(79,111,82,0.07);
+      border-radius: 12px;
+      padding: 16px 18px;
+    }
+
+    .col-destaque {
+      background: rgba(255,255,255,0.12);
+      border-radius: 12px;
+      padding: 16px 18px;
+    }
+
+    .num-grande {
+      font-family: 'Gabriela', serif;
+      font-size: 2.2em;
+      color: var(--ambar);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .num-label {
+      font-size: 0.38em;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--branco);
+      opacity: 0.7;
+    }
+
+    .passo {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      margin-bottom: 10px;
+    }
+
+    .passo-num {
+      background: var(--ambar);
+      color: var(--verde-musgo);
+      font-family: 'Roboto', sans-serif;
+      font-weight: 700;
+      font-size: 0.42em;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .passo-texto {
+      font-size: 0.48em;
+      line-height: 1.5;
+      color: var(--branco);
+    }
+
+    .passo-texto strong {
+      display: block;
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+
+    .slide-conteudo .passo-texto { color: #2a2a2a; }
+
+    .pill {
+      display: inline-block;
+      padding: 4px 14px;
+      border-radius: 100px;
+      font-size: 0.38em;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .pill-verde { background: var(--verde-musgo); color: var(--branco); }
+    .pill-terracota { background: var(--terracota); color: var(--branco); }
+    .pill-ambar { background: var(--ambar); color: var(--verde-musgo); }
+
+    /* Compaction para slides densos */
+    .compacto h2 { font-size: 0.85em; margin-bottom: 12px; }
+    .compacto h3 { font-size: 0.42em; margin-bottom: 8px; }
+    .compacto li { font-size: 0.46em; margin-bottom: 4px; }
+    .compacto .col { padding: 16px 18px; }
+    .compacto .grid-2 { gap: 20px; margin-top: 10px; }
+
+    /* Checklist visual */
+    .checklist { list-style: none; padding: 0; margin: 0; }
+    .checklist li::before { content: "☐"; margin-right: 12px; color: var(--ambar); font-weight: 700; }
+
+    .slide-destaque .checklist li { color: var(--branco); }
+    .slide-destaque .checklist li::before { color: var(--ambar); }
+    .slide-conteudo .checklist li::before { color: var(--terracota); }
+
+    /* Pergunta highlight */
+    .pergunta {
+      font-family: 'Gabriela', serif;
+      font-size: 0.62em;
+      color: var(--ambar);
+      font-style: italic;
+      margin-bottom: 6px;
+    }
+
+    .slide-conteudo .pergunta { color: var(--terracota); }
+
+    /* ── Botão Início ── */
+    .btn-inicio {
+      position: fixed;
+      bottom: 28px;
+      left: 28px;
+      z-index: 9999;
+      background: rgba(79,111,82,0.92);
+      color: #fff;
+      font-family: 'Roboto', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-decoration: none;
+      padding: 9px 18px;
+      border-radius: 100px;
+      backdrop-filter: blur(6px);
+      transition: background 0.2s;
+    }
+    .btn-inicio:hover { background: rgba(79,111,82,1); }
+  </style>
+</head>
+<body>
+
+<a href="../index.html" class="btn-inicio">← Início</a>
+
+<div class="reveal">
+  <div class="slides">
+
+    <!-- ══ CAPA ══ -->
+    <section class="slide-capa">
+      <div class="tag">CEP · Aula 4</div>
+      <h1>Montagem do<br>Roteiro Award</h1>
+      <p class="sub" style="margin-top:16px; font-size:0.52em; opacity:0.85;">De disponibilidade isolada a viagem completa.</p>
+    </section>
+
+    <!-- ══ CITAÇÃO ÂNCORA ══ -->
+    <section class="slide-citacao">
+      <blockquote style="font-size:0.72em; border-left-color: var(--ambar);">
+        "Achar disponibilidade é só o começo.<br>
+        O roteiro acontece quando você sabe<br>
+        <em>o que fazer</em> com o que encontrou."
+      </blockquote>
+    </section>
+
+    <!-- ══ SEÇÃO 1: CRUZANDO PROGRAMAS ══ -->
+    <section class="slide-secao">
+      <div class="tag">Bloco 1</div>
+      <h1>Cruzando<br>Programas</h1>
+      <p>Comparando disponibilidade entre emissores diferentes</p>
+    </section>
+
+    <!-- Por que cruzar programas -->
+    <section class="slide-conteudo">
+      <div class="tag">Conceito</div>
+      <h2>Por que olhar mais de um programa?</h2>
+      <p style="font-size:0.5em; margin-bottom:18px;">A mesma rota pode ter disponibilidade em programas diferentes — e custar quantidades de pontos muito distintas. Quem busca em um programa só, decide sem comparação.</p>
+      <div class="grid-2">
+        <div class="col">
+          <h3>Sem cruzar programas</h3>
+          <ul>
+            <li style="font-size:0.46em;">Acha o primeiro espaço e já transfere pontos</li>
+            <li style="font-size:0.46em;">Não sabe se existia opção mais barata</li>
+            <li style="font-size:0.46em;">Pode pagar mais taxa do que precisava</li>
+            <li style="font-size:0.46em;">Perde a chance do melhor emissor para a rota</li>
+          </ul>
+        </div>
+        <div class="col">
+          <h3>Cruzando programas</h3>
+          <ul>
+            <li style="font-size:0.46em;">Compara custo em pontos entre 2-3 programas</li>
+            <li style="font-size:0.46em;">Compara taxas de cada emissor</li>
+            <li style="font-size:0.46em;">Identifica o melhor custo-benefício real</li>
+            <li style="font-size:0.46em;">Decide com base em dados, não no primeiro achado</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Como combinar programas distintos -->
+    <section class="slide-conteudo compacto">
+      <div class="tag">Prática</div>
+      <h2>Como combinar programas distintos</h2>
+      <div class="grid-2">
+        <div class="col">
+          <h3>Mesmo trecho, programas diferentes</h3>
+          <ul>
+            <li style="font-size:0.46em;">A mesma companhia aérea pode ser emitida por mais de um programa parceiro</li>
+            <li style="font-size:0.46em;">Cada programa tem sua própria tabela de milhas para o mesmo voo</li>
+            <li style="font-size:0.46em;">Verifique sempre: quem emite mais barato para essa rota?</li>
+          </ul>
+        </div>
+        <div class="col">
+          <h3>Escolhendo o melhor emissor</h3>
+          <ul>
+            <li style="font-size:0.46em;"><strong>Custo em pontos</strong> — quantas milhas a tabela pede</li>
+            <li style="font-size:0.46em;"><strong>Taxas cobradas</strong> — fuel surcharge varia muito por emissor</li>
+            <li style="font-size:0.46em;"><strong>Pontos disponíveis</strong> — onde você já tem saldo</li>
+            <li style="font-size:0.46em;"><strong>Regras de stopover/conexão</strong> — cada programa permite coisas diferentes</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ SEÇÃO 2: DE OPORTUNIDADE A ROTEIRO ══ -->
+    <section class="slide-secao">
+      <div class="tag">Bloco 2</div>
+      <h1>De Oportunidade<br>a Roteiro</h1>
+      <p>Transformando um espaço isolado em viagem completa</p>
+    </section>
+
+    <!-- Oportunidade isolada -->
+    <section class="slide-conteudo">
+      <div class="tag">Conceito</div>
+      <h2>O que é uma oportunidade isolada?</h2>
+      <p style="font-size:0.5em; margin-bottom:18px;">É quando você encontra disponibilidade para <strong>um trecho específico</strong> — mas ainda não tem uma viagem completa ao redor dele. O trabalho agora é construir o roteiro a partir desse ponto.</p>
+      <div class="grid-3">
+        <div class="col">
+          <h3>1. O achado</h3>
+          <ul>
+            <li style="font-size:0.44em;">Um voo com espaço em Business</li>
+            <li style="font-size:0.44em;">Em um trecho que faz parte do seu plano</li>
+            <li style="font-size:0.44em;">Mas sozinho, ainda não é uma viagem</li>
+          </ul>
+        </div>
+        <div class="col">
+          <h3>2. A pergunta</h3>
+          <ul>
+            <li style="font-size:0.44em;">O que falta para virar roteiro completo?</li>
+            <li style="font-size:0.44em;">Como chego até esse ponto de partida?</li>
+            <li style="font-size:0.44em;">Como volto do destino final?</li>
+          </ul>
+        </div>
+        <div class="col">
+          <h3>3. A construção</h3>
+          <ul>
+            <li style="font-size:0.44em;">Encaixar trechos complementares</li>
+            <li style="font-size:0.44em;">Aproveitar a disponibilidade parcial</li>
+            <li style="font-size:0.44em;">Fechar o ciclo: ida + volta</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Construção de rota -->
+    <section class="slide-conteudo compacto">
+      <div class="tag">Prática</div>
+      <h2>Construção de rota: passo a passo</h2>
+      <div class="passo">
+        <div class="passo-num" style="background: var(--terracota); color: var(--branco);">1</div>
+        <div class="passo-texto">
+          <strong>Marque o trecho confirmado</strong>
+          Esse é o seu ponto fixo — a peça que já tem disponibilidade real.
+        </div>
+      </div>
+      <div class="passo">
+        <div class="passo-num" style="background: var(--terracota); color: var(--branco);">2</div>
+        <div class="passo-texto">
+          <strong>Olhe para os dois lados</strong>
+          Como chego até o ponto de partida desse trecho? Como sigo a partir do ponto de chegada?
+        </div>
+      </div>
+      <div class="passo">
+        <div class="passo-num" style="background: var(--terracota); color: var(--branco);">3</div>
+        <div class="passo-texto">
+          <strong>Busque encaixes</strong>
+          Procure trechos que conectem sua origem real e seu destino final ao trecho confirmado.
+        </div>
+      </div>
+      <div class="passo">
+        <div class="passo-num" style="background: var(--terracota); color: var(--branco);">4</div>
+        <div class="passo-texto">
+          <strong>Aproveite a disponibilidade parcial</strong>
+          Nem sempre o roteiro fecha 100% perfeito — às vezes vale aceitar uma conexão a mais para aproveitar o trecho bom.
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ SEÇÃO 3: OPEN JAW E CONEXÕES ══ -->
+    <section class="slide-secao">
+      <div class="tag">Bloco 3</div>
+      <h1>Open Jaw &amp;<br>Conexões Inteligentes</h1>
+      <p>Estruturas que tornam o roteiro mais eficiente</p>
+    </section>
+
+    <!-- Open Jaw -->
+    <section class="slide-conteudo compacto">
+      <div class="tag">Estrutura · Open Jaw</div>
+      <h2>O que é Open Jaw?</h2>
+      <div class="grid-2">
+        <div class="col">
+          <h3>Definição</h3>
+          <p class="pergunta">Sai de um lugar, volta de outro</p>
+          <ul>
+            <li style="font-size:0.46em;">Você voa para o destino A</li>
+            <li style="font-size:0.46em;">Se desloca por terra/outro voo até B</li>
+            <li style="font-size:0.46em;">Volta de B para casa</li>
+          </ul>
+          <p style="font-size:0.42em; margin-top:10px; color:#666;">O "salto" entre A e B não é coberto pela passagem award.</p>
+        </div>
+        <div class="col">
+          <h3>Quando usar</h3>
+          <ul>
+            <li style="font-size:0.46em;">Viagens com múltiplos destinos na mesma região</li>
+            <li style="font-size:0.46em;">Quando há disponibilidade de ida em um aeroporto e de volta em outro</li>
+            <li style="font-size:0.46em;">Evita voltar ao ponto de partida só para seguir viagem</li>
+            <li style="font-size:0.46em;">Geralmente custa o mesmo que ida e volta simples</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Conexões inteligentes e Long Layovers -->
+    <section class="slide-conteudo compacto">
+      <div class="tag">Estrutura · Conexões</div>
+      <h2>Conexões inteligentes e Long Layovers</h2>
+      <div class="grid-2">
+        <div class="col">
+          <h3>Conexões estratégicas</h3>
+          <ul>
+            <li style="font-size:0.46em;">Escolher hubs que abrem mais opções de rota</li>
+            <li style="font-size:0.46em;">Conexões em hubs fortes da aliança aumentam a chance de espaço</li>
+            <li style="font-size:0.46em;">Uma conexão a mais pode liberar disponibilidade em Business/First</li>
+          </ul>
+        </div>
+        <div class="col">
+          <h3>Long Layover (stopover)</h3>
+          <p class="pergunta">Transformar conexão em mini-viagem</p>
+          <ul>
+            <li style="font-size:0.46em;">Alguns programas permitem ficar mais tempo numa cidade de conexão</li>
+            <li style="font-size:0.46em;">Mesmo custo em pontos, dois destinos na mesma viagem</li>
+            <li style="font-size:0.46em;">Verifique a regra de stopover de cada programa antes de montar o roteiro</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Roteiros mais eficientes -->
+    <section class="slide-destaque">
+      <div class="tag">Resultado</div>
+      <h2 style="font-size:0.9em; margin-bottom:20px;">O que essas estruturas entregam</h2>
+      <div class="grid-3">
+        <div class="col-destaque">
+          <h3 style="font-size:0.4em; color: var(--ambar); margin-bottom:10px;">Mais eficiência</h3>
+          <ul>
+            <li style="font-size:0.42em;">Menos deslocamento desnecessário</li>
+            <li style="font-size:0.42em;">Aproveita melhor o tempo de viagem</li>
+          </ul>
+        </div>
+        <div class="col-destaque">
+          <h3 style="font-size:0.4em; color: var(--ambar); margin-bottom:10px;">Mais destinos</h3>
+          <ul>
+            <li style="font-size:0.42em;">Open Jaw conecta múltiplas cidades</li>
+            <li style="font-size:0.42em;">Long Layover soma um destino extra</li>
+          </ul>
+        </div>
+        <div class="col-destaque">
+          <h3 style="font-size:0.4em; color: var(--ambar); margin-bottom:10px;">Conexões a seu favor</h3>
+          <ul>
+            <li style="font-size:0.42em;">Hub certo = mais disponibilidade</li>
+            <li style="font-size:0.42em;">Conexão vira oportunidade, não obstáculo</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ SEÇÃO 4: IDA E VOLTA EM PROGRAMAS DIFERENTES ══ -->
+    <section class="slide-secao">
+      <div class="tag">Bloco 4</div>
+      <h1>Ida e Volta em<br>Programas Diferentes</h1>
+      <p>Montando o roteiro completo combinando emissores</p>
+    </section>
+
+    <!-- Como montar -->
+    <section class="slide-conteudo compacto">
+      <div class="tag">Prática</div>
+      <h2>Ida em um programa, volta em outro</h2>
+      <p style="font-size:0.48em; margin-bottom:14px;">Quando nenhum programa sozinho tem disponibilidade nos dois sentidos, você pode emitir cada trecho separadamente — em programas diferentes.</p>
+      <div class="grid-2">
+        <div class="col">
+          <h3>Como funciona</h3>
+          <ul>
+            <li style="font-size:0.46em;">Ida: emitida pelo Programa A, com pontos do Programa A</li>
+            <li style="font-size:0.46em;">Volta: emitida pelo Programa B, com pontos do Programa B</li>
+            <li style="font-size:0.46em;">São duas emissões separadas — duas reservas, duas taxas</li>
+            <li style="font-size:0.46em;">Cada trecho segue as regras do seu próprio programa</li>
+          </ul>
+        </div>
+        <div class="col">
+          <h3>Quando vale a pena</h3>
+          <ul>
+            <li style="font-size:0.46em;">Quando a ida ou a volta está travada em todos os programas que você tem</li>
+            <li style="font-size:0.46em;">Quando um programa tem ótima disponibilidade só num sentido</li>
+            <li style="font-size:0.46em;">Quando o custo total (pontos + taxas) ainda compensa frente a outras opções</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Como evitar problemas -->
+    <section class="slide-destaque">
+      <div class="tag">Atenção</div>
+      <h2 style="font-size:0.85em; margin-bottom:18px;">Como evitar roteiros problemáticos</h2>
+      <div class="grid-3">
+        <div class="col-destaque">
+          <h3 style="font-size:0.4em; color: var(--ambar); margin-bottom:10px;">Roteiros travados</h3>
+          <ul>
+            <li style="font-size:0.42em;">Verifique disponibilidade da volta <em>antes</em> de emitir a ida</li>
+            <li style="font-size:0.42em;">Não emita um trecho sem hipótese viável para o outro</li>
+            <li style="font-size:0.42em;">Tenha um plano B de programa para a volta</li>
+          </ul>
+        </div>
+        <div class="col-destaque">
+          <h3 style="font-size:0.4em; color: var(--ambar); margin-bottom:10px;">Excesso de taxas</h3>
+          <ul>
+            <li style="font-size:0.42em;">Compare taxas dos dois emissores antes de decidir</li>
+            <li style="font-size:0.42em;">Duas emissões = duas cobranças de taxa</li>
+            <li style="font-size:0.42em;">Programas com fuel surcharge alto podem inviabilizar a combinação</li>
+          </ul>
+        </div>
+        <div class="col-destaque">
+          <h3 style="font-size:0.4em; color: var(--ambar); margin-bottom:10px;">Conexões ruins</h3>
+          <ul>
+            <li style="font-size:0.42em;">Confira horários de conexão em cada trecho separado</li>
+            <li style="font-size:0.42em;">Cuidado com aeroportos diferentes na mesma cidade</li>
+            <li style="font-size:0.42em;">Deixe margem entre a chegada de um trecho e a saída do outro</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ SEÇÃO 5: CÁLCULO FINAL DA EMISSÃO ══ -->
+    <section class="slide-secao">
+      <div class="tag">Bloco 5</div>
+      <h1>Cálculo Final<br>da Emissão</h1>
+      <p>Fechando a conta antes de emitir</p>
+    </section>
+
+    <!-- Cálculo final -->
+    <section class="slide-conteudo compacto">
+      <div class="tag">Prática</div>
+      <h2>O que entra na conta final</h2>
+      <div class="grid-2">
+        <div class="col">
+          <h3>Quantidade ideal de milhas</h3>
+          <ul>
+            <li style="font-size:0.46em;">Some o custo de todos os trechos do roteiro</li>
+            <li style="font-size:0.46em;">Confirme se tem saldo suficiente em cada programa envolvido</li>
+            <li style="font-size:0.46em;">Considere uma margem de segurança para taxas extras</li>
+          </ul>
+          <h3 style="margin-top:14px;">Análise de taxas</h3>
+          <ul>
+            <li style="font-size:0.46em;">Taxas de embarque, fuel surcharge, taxas do programa</li>
+            <li style="font-size:0.46em;">Compare o total em dinheiro entre as opções viáveis</li>
+            <li style="font-size:0.46em;">Verifique se o valor está dentro do limite definido no briefing</li>
+          </ul>
+        </div>
+        <div class="col">
+          <h3>Escolha do melhor cartão</h3>
+          <ul>
+            <li style="font-size:0.46em;">Cartões internacionais sem IOF de cartão de crédito</li>
+            <li style="font-size:0.46em;">Cashback ou pontos no pagamento das taxas</li>
+            <li style="font-size:0.46em;">Verifique limite disponível antes da emissão</li>
+          </ul>
+          <h3 style="margin-top:14px;">Melhor combinação custo-benefício</h3>
+          <ul>
+            <li style="font-size:0.46em;">Pontos + taxas + cartão = custo total real</li>
+            <li style="font-size:0.46em;">Compare esse total com o valor da passagem em dinheiro</li>
+            <li style="font-size:0.46em;">Decida com o briefing em mãos: o objetivo da viagem foi atingido?</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ SEÇÃO 6: SCRIPT FINAL DE EMISSÃO ══ -->
+    <section class="slide-secao">
+      <div class="tag">Bloco 6</div>
+      <h1>Script Final<br>de Emissão</h1>
+      <p>Da busca até a tela de pagamento</p>
+    </section>
+
+    <!-- Script de emissão -->
+    <section class="slide-conteudo compacto">
+      <div class="tag">Passo a passo</div>
+      <h2>Script final de emissão</h2>
+      <div class="passo">
+        <div class="passo-num">1</div>
+        <div class="passo-texto"><strong>Confirme a disponibilidade</strong>Refaça a busca pouco antes de emitir — disponibilidade award muda rápido.</div>
+      </div>
+      <div class="passo">
+        <div class="passo-num">2</div>
+        <div class="passo-texto"><strong>Confirme o saldo de pontos</strong>Verifique se os pontos já estão na conta do programa certo (transferências podem levar horas).</div>
+      </div>
+      <div class="passo">
+        <div class="passo-num">3</div>
+        <div class="passo-texto"><strong>Monte o roteiro completo no site do programa</strong>Insira todos os trechos na ordem correta, conferindo datas e conexões.</div>
+      </div>
+      <div class="passo">
+        <div class="passo-num">4</div>
+        <div class="passo-texto"><strong>Confira nomes e documentos dos passageiros</strong>Nome igual ao do passaporte, sem abreviações erradas.</div>
+      </div>
+      <div class="passo">
+        <div class="passo-num">5</div>
+        <div class="passo-texto"><strong>Revise o resumo antes de pagar</strong>Trechos, datas, cabine, quantidade de milhas e valor total das taxas.</div>
+      </div>
+      <div class="passo">
+        <div class="passo-num">6</div>
+        <div class="passo-texto"><strong>Pague com o cartão definido</strong>Use o cartão escolhido na etapa de cálculo final.</div>
+      </div>
+      <div class="passo">
+        <div class="passo-num">7</div>
+        <div class="passo-texto"><strong>Guarde a confirmação</strong>Salve o localizador (PNR) e confira a reserva diretamente no site da companhia aérea.</div>
+      </div>
+    </section>
+
+    <!-- ══ CHECKLIST DO ROTEIRO ══ -->
+    <section class="slide-conteudo">
+      <div class="tag">Checklist</div>
+      <h2 style="font-size:0.85em; margin-bottom:14px;">Antes de fechar o roteiro</h2>
+      <div class="grid-2">
+        <div class="col">
+          <h3 style="font-size:0.4em; margin-bottom:10px;">Estrutura da viagem</h3>
+          <ul class="checklist">
+            <li style="font-size:0.44em;">A oportunidade isolada virou roteiro completo?</li>
+            <li style="font-size:0.44em;">Ida e volta estão garantidas (mesmo programa ou combinados)?</li>
+            <li style="font-size:0.44em;">Open Jaw ou Long Layover fazem sentido aqui?</li>
+            <li style="font-size:0.44em;">As conexões têm tempo seguro entre voos?</li>
+          </ul>
+        </div>
+        <div class="col">
+          <h3 style="font-size:0.4em; margin-bottom:10px;">Antes de emitir</h3>
+          <ul class="checklist">
+            <li style="font-size:0.44em;">Quantidade de milhas confirmada em cada programa?</li>
+            <li style="font-size:0.44em;">Taxas dentro do limite definido no briefing?</li>
+            <li style="font-size:0.44em;">Cartão certo escolhido para o pagamento?</li>
+            <li style="font-size:0.44em;">Disponibilidade reconfirmada na hora de emitir?</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ IDEIA-CHAVE ══ -->
+    <section class="slide-citacao">
+      <div class="tag">Ideia-chave</div>
+      <blockquote style="font-size:0.75em; border-left-color: var(--ambar); margin-top: 20px;">
+        "Um bom roteiro não nasce pronto.<br>
+        Ele é construído peça por peça,<br>
+        a partir da primeira oportunidade real."
+      </blockquote>
+    </section>
+
+    <!-- ══ FECHAMENTO ══ -->
+    <section class="slide-fechamento">
+      <div class="tag">CEP · Aula 4</div>
+      <h1>Roteiro montado.<br>Hora de emitir.</h1>
+      <p class="sub" style="margin-top:20px; font-size:0.5em; opacity:0.85;">Bruna Araújo · @eujuntomilhas</p>
+    </section>
+
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@4.6.0/dist/reveal.js"></script>
+<script>
+  Reveal.initialize({
+    hash: true,
+    controls: true,
+    progress: true,
+    center: false,
+    transition: 'fade',
+    width: 1280,
+    height: 720,
+  });
+</script>
+</body>
+</html>
